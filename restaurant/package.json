@@ -1,0 +1,12 @@
+{
+  "name": "restaurant",
+  "version": "1.0.0",
+  "description": "Simple restaurant",
+  "main": "index.js",
+  "dependencies": {
+    "custom-error-instance": "^1.0.0"
+  },
+  "devDependencies": {},
+  "author": "James Speirs",
+  "license": "ISC"
+}
