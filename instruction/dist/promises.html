@@ -1,0 +1,402 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" src="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-promises" class="anchor" href="#promises" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Promises</h1>
+
+<hr>
+
+<p>Promises simplify complex asynchronous data flow.</p>
+
+<p>Without promises, a simple asynchronous operation can be complex. For example, simultaneously loading the contents of three files and getting
+there data back in the order you requested. You can see an example of this below:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> fs <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> start <span class="pl-k">=</span> <span class="pl-smi">Date</span>.<span class="pl-en">now</span>();
+<span class="pl-k">var</span> results <span class="pl-k">=</span> [];
+<span class="pl-k">var</span> done <span class="pl-k">=</span> <span class="pl-c1">3</span>;
+
+<span class="pl-k">function</span> <span class="pl-en">checkDone</span>() {
+    done<span class="pl-k">--</span>;
+    <span class="pl-k">if</span> (done <span class="pl-k">===</span> <span class="pl-c1">0</span>) {
+        <span class="pl-smi">results</span>.<span class="pl-en">forEach</span>(<span class="pl-k">function</span>(<span class="pl-smi">result</span>) {
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(result);
+        });
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">Date</span>.<span class="pl-en">now</span>() <span class="pl-k">-</span> time);
+    }
+}
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./small.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    results[<span class="pl-c1">0</span>] <span class="pl-k">=</span> <span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>);
+    <span class="pl-en">checkDone</span>();
+});
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./medium.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    results[<span class="pl-c1">1</span>] <span class="pl-k">=</span> <span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>);
+    <span class="pl-en">checkDone</span>();
+});
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./large.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    results[<span class="pl-c1">2</span>] <span class="pl-k">=</span> <span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>);
+    <span class="pl-en">checkDone</span>();
+});</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-basics" class="anchor" href="#basics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basics</h2>
+
+<ul>
+<li>A Promise is a JavaScript object with properties.</li>
+<li>Some properties contain status information about the asynchronous operation.</li>
+<li>Some properties have functions that allow you to access the result of the asynchronous operation once it is ready.</li>
+<li>Promises mimic synchronous data flow.</li>
+</ul>
+
+<h3>
+<a id="user-content-mimicking-synchronous-data-flow" class="anchor" href="#mimicking-synchronous-data-flow" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mimicking Synchronous Data Flow</h3>
+
+<p>The following two examples show the similarities between synchronous and asynchronous promise code structures.
+These two examples would produce the exact same results, pass or fail.</p>
+
+<h4>
+<a id="user-content-synchronous-example" class="anchor" href="#synchronous-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Synchronous Example</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">try</span> {
+    <span class="pl-k">var</span> content <span class="pl-k">=</span> <span class="pl-en">readFileSync</span>(<span class="pl-s"><span class="pl-pds">'</span>./file.txt<span class="pl-pds">'</span></span>);
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(content);
+} <span class="pl-k">catch</span> (err) {
+    <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-smi">err</span>.<span class="pl-smi">stack</span>);
+}</pre></div>
+
+<h4>
+<a id="user-content-asynchronous-example" class="anchor" href="#asynchronous-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asynchronous Example</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./file.txt<span class="pl-pds">'</span></span>)
+    .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">content</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(content);
+    })
+    .<span class="pl-en">catch</span>(err) {
+        <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-smi">err</span>.<span class="pl-smi">stack</span>);
+    });</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-a-promises" class="anchor" href="#a-promises" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A+ Promises</h2>
+
+<ul>
+<li>A standard was created to define how promises should work.</li>
+<li>Before browsers or NodeJS implemented promises, other developers followed the promise specifications to build libraries that implemented promises.</li>
+<li>There are many Promise libraries. For a list of fully compliant promise libraries, visit <a href="https://promisesaplus.com/implementations">https://promisesaplus.com/implementations</a>.</li>
+<li>Bluebird is currently considered the best implementation due to it's high performance nature.</li>
+</ul>
+
+<p>Some of the very latest JavaScript engines implement Promise natively, but bluebird is currently higher performing than
+even the native implementations. See: <a href="http://programmers.stackexchange.com/questions/278778/why-are-native-es6-promises-slower-and-more-memory-intensive-than-bluebird">http://programmers.stackexchange.com/questions/278778/why-are-native-es6-promises-slower-and-more-memory-intensive-than-bluebird</a></p>
+
+<h3>
+<a id="user-content-terminology" class="anchor" href="#terminology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Terminology</h3>
+
+<p>Here are some terms you should be familiar with and that you should use when talking about promises.</p>
+
+<ul>
+<li>
+<strong>promise</strong> - An object with a <code>then</code> method whose behavior conforms to the <a href="https://promisesaplus.com/">A+ Promise specifications</a>
+</li>
+<li>
+<strong>resolve</strong> - If a promise completes successfully then the promise has been <em>resolved</em> and it returns a <em>value</em>.</li>
+<li>
+<strong>reject</strong> - If a promise does not complete succesfully then the promise has been <em>rejected</em> and it returns a <em>reason</em>.</li>
+<li>
+<strong>reason</strong> - The value that indicates why the promise was <em>rejected</em>.</li>
+<li>
+<strong>value</strong> - The value that was returned by a successful promise resolution.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-creating-a-promise" class="anchor" href="#creating-a-promise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Promise</h2>
+
+<p>Creating a promise can be daunting at first, so let's break it up before we see the whole:</p>
+
+<h4>
+<a id="user-content-1-function-signature" class="anchor" href="#1-function-signature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. Function Signature</h4>
+
+<p>The function signature for a promise is simple. You pass a callback function into the Promise function as its first
+parameter. The Promise function must be called with the <code>new</code> keyword so that you can get back an instance of a promise.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> promise <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Promise</span> (promiseCallback);</pre></div>
+
+<h4>
+<a id="user-content-2-callback-signature" class="anchor" href="#2-callback-signature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. Callback Signature</h4>
+
+<ul>
+<li>The callback function will be called with two parameters: resolve and reject. </li>
+<li>Resolve and reject are functions.</li>
+<li>To <em>resolve</em> the promise, call the resolve function and optionally give it one parameter, a <em>value</em>.</li>
+<li>To <em>reject</em> the promise, call the reject function and optionally give it one parameter, a <em>reason</em>.</li>
+<li>If an Error is thrown within the promise callback and it is not caught then the promise instance will catch the Error for you and cause a rejection to occur, with the reason being the Error.</li>
+<li>Once you resolve or reject the promise, you cannot resolve or reject it again later.</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> promise <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Promise</span>(<span class="pl-k">function</span>(<span class="pl-smi">resolve</span>, <span class="pl-smi">reject</span>) {
+    <span class="pl-k">if</span> ( <span class="pl-k">...</span> ) <span class="pl-k">return</span> <span class="pl-en">reject</span>(<span class="pl-s"><span class="pl-pds">"</span>Didn't work.<span class="pl-pds">"</span></span>);
+    <span class="pl-en">resolve</span>(<span class="pl-s"><span class="pl-pds">"</span>It worked<span class="pl-pds">"</span></span>);
+});</pre></div>
+
+<h4>
+<a id="user-content-3-returning-a-promise" class="anchor" href="#3-returning-a-promise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. Returning a Promise</h4>
+
+<p>It is common to write a function that returns a promise. Here is an example of how you would do that:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">doSomething</span>(<span class="pl-smi">x</span>, <span class="pl-smi">y</span>) {
+    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">Promise</span>(<span class="pl-k">function</span>(<span class="pl-smi">resolve</span>, <span class="pl-smi">reject</span>) {
+        <span class="pl-k">if</span> (x <span class="pl-k">&gt;</span> y) <span class="pl-k">return</span> <span class="pl-en">resolve</span>(x);
+        <span class="pl-en">reject</span>(y);
+    });
+}</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-exercise" class="anchor" href="#exercise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h2>
+
+<ol>
+<li>Create a function that takes a callback and a number as parameters and returns a promise.</li>
+<li>The number will specify a delay that you should create using the <code>setTimeout</code> function.</li>
+<li>The callback will be called after the delay and should return a value.</li>
+<li>The value that is returned from the callback should be used to resolve the promise.</li>
+</ol>
+
+<p>You can model your solution after the example we just saw:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">doSomething</span>(<span class="pl-smi">x</span>, <span class="pl-smi">y</span>) {
+    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">Promise</span>(<span class="pl-k">function</span>(<span class="pl-smi">resolve</span>, <span class="pl-smi">reject</span>) {
+        <span class="pl-k">if</span> (x <span class="pl-k">&gt;</span> y) <span class="pl-k">return</span> <span class="pl-en">resolve</span>(x);
+        <span class="pl-en">reject</span>(y);
+    });
+}</pre></div>
+
+<hr>
+
+<h3>
+<a id="user-content-exercise-solution" class="anchor" href="#exercise-solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise Solution</h3>
+
+<p>Keep a copy of this code because we'll be using it in the next few exercises.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">timeoutPromise</span>(<span class="pl-smi">delay</span>, <span class="pl-smi">callback</span>) {
+    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">Promise</span>(<span class="pl-k">function</span>(<span class="pl-smi">resolve</span>, <span class="pl-smi">reject</span>) {
+        <span class="pl-c1">setTimeout</span>(<span class="pl-k">function</span>() {
+            <span class="pl-k">var</span> value <span class="pl-k">=</span> <span class="pl-en">callback</span>();
+            <span class="pl-en">resolve</span>(value);
+        }, delay);
+    });
+}</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-processing-a-promises-outcome" class="anchor" href="#processing-a-promises-outcome" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Processing a Promise's Outcome</h2>
+
+<h3>
+<a id="user-content-promisethen" class="anchor" href="#promisethen" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Promise.then</h3>
+
+<ul>
+<li>The <code>then</code> property from a Promise is a function that accepts a callback function.</li>
+<li>The callback function will only get one parameter, the result of the asynchronous operation.</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> promise <span class="pl-k">=</span> <span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./file.txt<span class="pl-pds">'</span></span>);
+<span class="pl-smi">promise</span>.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">content</span>) {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>File Contents: <span class="pl-pds">'</span></span> <span class="pl-k">+</span> content);
+});</pre></div>
+
+<ul>
+<li>There is also a second optional parameter for <code>then</code>.</li>
+<li>This parameter also must be a callback function, but it will receive any thrown errors.</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> promise <span class="pl-k">=</span> <span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./file.txt<span class="pl-pds">'</span></span>);
+<span class="pl-smi">promise</span>.<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">content</span>) { <span class="pl-k">...</span> }, <span class="pl-k">function</span>(<span class="pl-smi">err</span>) {
+    <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-smi">err</span>.<span class="pl-smi">stack</span>);
+});</pre></div>
+
+<p>So this is the function signature for <code>then</code>: <strong>.then ( successCallback [, errorCallback ] );</strong></p>
+
+<p>It's all a matter of preference, but I usually omit the error callback function an instead use the <code>catch</code> function (below).</p>
+
+<h3>
+<a id="user-content-promisecatch" class="anchor" href="#promisecatch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Promise.catch</h3>
+
+<ul>
+<li>The <code>catch</code> property is a function that accepts a callback function.</li>
+<li>The callback that you give the <code>catch</code> will only be called if an error is thrown.</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> promise <span class="pl-k">=</span> <span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./file.txt<span class="pl-pds">'</span></span>);
+<span class="pl-smi">promise</span>.<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>) {
+    <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-smi">err</span>.<span class="pl-smi">stack</span>);
+});</pre></div>
+
+<h3>
+<a id="user-content-promise-property-chains" class="anchor" href="#promise-property-chains" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Promise Property Chains</h3>
+
+<p>An interesting thing about <code>then</code> and <code>catch</code> is that they <strong><em>always</em></strong> return a promise. If you are in a <code>then</code> or a
+<code>catch</code> callback and your callback...</p>
+
+<ul>
+<li>Returns a value, then the value is returned as a <em>resolved</em> promise <em>value</em>.</li>
+<li>Returns a Promise instance, then that instance is returned.</li>
+<li>Throws an Error, then a promise is returned that is <em>rejected</em> with the <em>reason</em> being the error.</li>
+</ul>
+
+<p>What that means is that you can create promise property chains where you call <code>then</code> or <code>catch</code> after any <code>then</code> or <code>catch</code>.</p>
+
+<p>Note that if a promise is ever <em>rejected</em> then all <code>then</code> functions that follow will be skipped until a <code>catch</code> function
+catches the <em>rejected</em> promise.</p>
+
+<h4>
+<a id="user-content-example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">getPromise</span>()
+    .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(value);
+    })
+    .<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">reason</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">error</span>(reason);
+    });</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-exercise-1" class="anchor" href="#exercise-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h2>
+
+<ol>
+<li>Create a function called <code>returnValue</code> that returns a value.</li>
+<li>Use the <code>timeoutPromise</code> function to call this function.</li>
+<li>Use <code>then</code> and <code>catch</code> along with <code>console.log</code> to determine how the result was returned.</li>
+</ol>
+
+<h4>
+<a id="user-content-question" class="anchor" href="#question" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Question</h4>
+
+<ol>
+<li>Was the promise resolved or rejected?</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-exercise-2" class="anchor" href="#exercise-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h2>
+
+<ol>
+<li>Create a function called <code>throwError</code> that throws an Error.</li>
+<li>Use the <code>timeoutPromise</code> function to call this function.</li>
+<li>Use <code>then</code> and <code>catch</code> along with <code>console.log</code> to determine how the result was returned.</li>
+</ol>
+
+<h4>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h4>
+
+<ol>
+<li>Was the promise resolved or rejected?</li>
+<li>
+<code>timeoutPromise</code> never calls the <em>reject</em> function, so how was this rejected?</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-exercise-3" class="anchor" href="#exercise-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h2>
+
+<ol>
+<li>Create a function that returns an Error.</li>
+<li>Use the <code>timeoutPromise</code> function to call this function.</li>
+<li>Use <code>then</code> and <code>catch</code> along with <code>console.log</code> to determine how the result was returned.</li>
+</ol>
+
+<h4>
+<a id="user-content-question-1" class="anchor" href="#question-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Question</h4>
+
+<ol>
+<li>Was the promise resolved or rejected?</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-exercise-4" class="anchor" href="#exercise-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h2>
+
+<p>Take the following synchronous example and build it's asynchronous equivalent using <code>timeoutPromise</code> for both the
+<code>throwError</code> and <code>returnValue</code> functions.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">try</span> {
+    <span class="pl-en">throwError</span>();
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Ok<span class="pl-pds">'</span></span>);
+} <span class="pl-k">catch</span> (err) {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Oops<span class="pl-pds">'</span></span>);
+}
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-c1">returnValue</span>());</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-solution" class="anchor" href="#solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h2>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">timeoutPromise</span>(<span class="pl-c1">100</span>, throwError)
+    .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Ok<span class="pl-pds">'</span></span>);
+    });
+    .<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Oops<span class="pl-pds">'</span></span>);
+    })
+    .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
+        <span class="pl-k">return</span> <span class="pl-en">timeoutPromise</span>(<span class="pl-c1">100</span>, returnValue);
+    })
+    .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(value);
+    });</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-exercise-5" class="anchor" href="#exercise-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h2>
+
+<p>Take the following synchronous example and build it's asynchronous equivalent using <code>timeoutPromise</code> for both the
+<code>throwError</code> and <code>returnValue</code> functions.</p>
+
+<p>The subtle distinction between this exercise and the previous is that the result isn't output until the end.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> result;
+<span class="pl-k">try</span> {
+    <span class="pl-en">throwError</span>();
+    result <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Ok<span class="pl-pds">'</span></span>;
+} <span class="pl-k">catch</span> (err) {
+    result <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Oops<span class="pl-pds">'</span></span>;
+}
+result <span class="pl-k">+=</span> <span class="pl-c1">returnValue</span>();
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(result);</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-solution-1" class="anchor" href="#solution-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h2>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">timeoutPromise</span>(<span class="pl-c1">100</span>, throwError)
+    .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
+        <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">'</span>Ok<span class="pl-pds">'</span></span>;
+    });
+    .<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>) {
+        <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">'</span>Oops<span class="pl-pds">'</span></span>;
+    })
+    .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value1</span>) {
+        <span class="pl-k">return</span> <span class="pl-en">timeoutPromise</span>(<span class="pl-c1">100</span>, returnValue)
+            .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value2</span>) {
+                <span class="pl-k">return</span> value1 <span class="pl-k">+</span> value2;
+            });
+    })
+    .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(value);
+    });</pre></div>
+
+<script src="main.js"></script></body></html>

@@ -1,0 +1,161 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" src="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-asynchronous-javascript" class="anchor" href="#asynchronous-javascript" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asynchronous JavaScript</h1>
+
+<hr>
+
+<p>This lesson is best taught through a series of exercises.</p>
+
+<h2>
+<a id="user-content-exercise-1-synchronous" class="anchor" href="#exercise-1-synchronous" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 1: Synchronous</h2>
+
+<ol>
+<li>Navigate to a directory you can work from.</li>
+<li>From the command line: <code>git clone https://github.com/Gi60s/sized-files</code>
+</li>
+<li>Navigate into the size-files directory.</li>
+<li>Create a file called <code>sync.js</code>
+</li>
+<li>Use fs.readFileSync to read the files small.txt, medium.txt, and large.txt and output the first six (6) characters from each file in that order.
+
+<ul>
+<li>Lookup the <a href="https://nodejs.org/api/fs.html">documentation for NodeJS' fs module</a>
+</li>
+</ul>
+</li>
+<li>Output the amount of time it took to read all of the files.</li>
+</ol>
+
+<hr>
+
+<h3>
+<a id="user-content-exercise-1-solution" class="anchor" href="#exercise-1-solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 1: Solution</h3>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> fs <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> content;
+<span class="pl-k">var</span> start <span class="pl-k">=</span> <span class="pl-smi">Date</span>.<span class="pl-en">now</span>();
+
+content <span class="pl-k">=</span> <span class="pl-smi">fs</span>.<span class="pl-en">readFileSync</span>(<span class="pl-s"><span class="pl-pds">'</span>./small.txt<span class="pl-pds">'</span></span>);
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(content);
+
+content <span class="pl-k">=</span> <span class="pl-smi">fs</span>.<span class="pl-en">readFileSync</span>(<span class="pl-s"><span class="pl-pds">'</span>./medium.txt<span class="pl-pds">'</span></span>);
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(content);
+
+content <span class="pl-k">=</span> <span class="pl-smi">fs</span>.<span class="pl-en">readFileSync</span>(<span class="pl-s"><span class="pl-pds">'</span>./large.txt<span class="pl-pds">'</span></span>);
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(content);
+
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">Date</span>.<span class="pl-en">now</span>() <span class="pl-k">-</span> start);</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-exercise-2-asynchronous" class="anchor" href="#exercise-2-asynchronous" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 2: Asynchronous</h2>
+
+<ol>
+<li>If you did not do exercise 1, the follow steps 1 - 3 of that exercise.</li>
+<li>Create a file named <code>async.js</code>
+</li>
+<li>Use fs.readFile to read the files small.txt, medium.txt, and large.txt and output the first six (6) characters of content of each in that order.
+
+<ul>
+<li>Lookup the <a href="https://nodejs.org/api/fs.html">documentation for NodeJS' fs module</a>
+</li>
+</ul>
+</li>
+<li>Output the amount of time it took to read all of the files.</li>
+</ol>
+
+<hr>
+
+<h3>
+<a id="user-content-exercise-2-solution-1" class="anchor" href="#exercise-2-solution-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 2: Solution 1</h3>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> fs <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> start <span class="pl-k">=</span> <span class="pl-smi">Date</span>.<span class="pl-en">now</span>();
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./small.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>));
+});
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./medium.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>));
+});
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./large.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>));
+});
+
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">Date</span>.<span class="pl-en">now</span>() <span class="pl-k">-</span> start);</pre></div>
+
+<p><strong>Questions:</strong></p>
+
+<ol>
+<li>What is wrong with this solution?</li>
+<li>What order did the file content come out in?</li>
+<li>Does the file content always come back in the same order?</li>
+</ol>
+
+<hr>
+
+<h3>
+<a id="user-content-exercise-2-solution-2" class="anchor" href="#exercise-2-solution-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 2: Solution 2</h3>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> fs <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> start <span class="pl-k">=</span> <span class="pl-smi">Date</span>.<span class="pl-en">now</span>();
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./small.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>));
+    <span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./medium.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>));
+        <span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./large.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>));
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">Date</span>.<span class="pl-en">now</span>() <span class="pl-k">-</span> start);
+        });
+    });
+});</pre></div>
+
+<p><strong>Questions</strong></p>
+
+<ol>
+<li>Why didn't this run any faster then the synchronous example?</li>
+<li>Why is this more efficient then the synchronous example?</li>
+</ol>
+
+<hr>
+
+<h3>
+<a id="user-content-exercise-2-solution-3" class="anchor" href="#exercise-2-solution-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 2: Solution 3</h3>
+
+<p>This solution is also correct, but it is much more efficient and a lot more complex.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> fs <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> start <span class="pl-k">=</span> <span class="pl-smi">Date</span>.<span class="pl-en">now</span>();
+<span class="pl-k">var</span> results <span class="pl-k">=</span> [];
+<span class="pl-k">var</span> done <span class="pl-k">=</span> <span class="pl-c1">3</span>;
+
+<span class="pl-k">function</span> <span class="pl-en">checkDone</span>() {
+    done<span class="pl-k">--</span>;
+    <span class="pl-k">if</span> (done <span class="pl-k">===</span> <span class="pl-c1">0</span>) {
+        <span class="pl-smi">results</span>.<span class="pl-en">forEach</span>(<span class="pl-k">function</span>(<span class="pl-smi">result</span>) {
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(result);
+        });
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">Date</span>.<span class="pl-en">now</span>() <span class="pl-k">-</span> time);
+    }
+}
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./small.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    results[<span class="pl-c1">0</span>] <span class="pl-k">=</span> <span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>);
+    <span class="pl-en">checkDone</span>();
+});
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./medium.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    results[<span class="pl-c1">1</span>] <span class="pl-k">=</span> <span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>);
+    <span class="pl-en">checkDone</span>();
+});
+
+<span class="pl-smi">fs</span>.<span class="pl-en">readFile</span>(<span class="pl-s"><span class="pl-pds">'</span>./large.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>utf8<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">data</span>) {
+    results[<span class="pl-c1">2</span>] <span class="pl-k">=</span> <span class="pl-smi">data</span>.<span class="pl-c1">substr</span>(<span class="pl-c1">0</span>, <span class="pl-c1">6</span>);
+    <span class="pl-en">checkDone</span>();
+});</pre></div>
+
+<script src="main.js"></script></body></html>
