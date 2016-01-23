@@ -367,3 +367,44 @@ timeoutPromise(100, throwError)
         console.log(value);
     });
 ```
+
+<hr>
+
+## Promise Collections
+
+If you have multiple promises running at the same time there there are several functions that can help you manage
+their completion. Here are two examples:
+
+### Promise.all
+
+Takes an array of promises and returns a promise that resolves when all resolve or rejects immediately when one rejects.
+
+```js
+var promises = [];
+for (var i = 0; i < fileNames.length; ++i) {
+    promises.push(fs.readFileAsync(fileNames[i]));
+}
+Promise.all(promises).then(function() {
+    console.log("done");
+});
+```
+
+### Promise.map
+
+For each item in an array like structure, call the callback for each item. Whatever is returned from the callback is
+used to produce a promise. When all of those promises resolve, this promise will resolve. If one rejects then this
+promise will be rejected.
+
+```js
+Promise.map(fileNames, function(fileName) {
+    return fs.readFileAsync(fileName);
+}).then(function() {
+    console.log("done");
+});
+```
+
+<hr>
+
+### Bluebird Promise API
+
+[http://bluebirdjs.com/docs/api-reference.html](http://bluebirdjs.com/docs/api-reference.html)

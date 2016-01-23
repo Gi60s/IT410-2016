@@ -1,4 +1,4 @@
-<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" src="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
 <h1>
 <a id="user-content-promises" class="anchor" href="#promises" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Promises</h1>
 
@@ -398,5 +398,46 @@ result <span class="pl-k">+=</span> <span class="pl-c1">returnValue</span>();
     .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
         <span class="pl-en">console</span>.<span class="pl-c1">log</span>(value);
     });</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-promise-collections" class="anchor" href="#promise-collections" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Promise Collections</h2>
+
+<p>If you have multiple promises running at the same time there there are several functions that can help you manage
+their completion. Here are two examples:</p>
+
+<h3>
+<a id="user-content-promiseall" class="anchor" href="#promiseall" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Promise.all</h3>
+
+<p>Takes an array of promises and returns a promise that resolves when all resolve or rejects immediately when one rejects.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> promises <span class="pl-k">=</span> [];
+<span class="pl-k">for</span> (<span class="pl-k">var</span> i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-smi">fileNames</span>.<span class="pl-c1">length</span>; <span class="pl-k">++</span>i) {
+    <span class="pl-smi">promises</span>.<span class="pl-c1">push</span>(<span class="pl-smi">fs</span>.<span class="pl-en">readFileAsync</span>(fileNames[i]));
+}
+<span class="pl-smi">Promise</span>.<span class="pl-c1">all</span>(promises).<span class="pl-en">then</span>(<span class="pl-k">function</span>() {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>done<span class="pl-pds">"</span></span>);
+});</pre></div>
+
+<h3>
+<a id="user-content-promisemap" class="anchor" href="#promisemap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Promise.map</h3>
+
+<p>For each item in an array like structure, call the callback for each item. Whatever is returned from the callback is
+used to produce a promise. When all of those promises resolve, this promise will resolve. If one rejects then this
+promise will be rejected.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">Promise</span>.<span class="pl-en">map</span>(fileNames, <span class="pl-k">function</span>(<span class="pl-smi">fileName</span>) {
+    <span class="pl-k">return</span> <span class="pl-smi">fs</span>.<span class="pl-en">readFileAsync</span>(fileName);
+}).<span class="pl-en">then</span>(<span class="pl-k">function</span>() {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>done<span class="pl-pds">"</span></span>);
+});</pre></div>
+
+<hr>
+
+<h3>
+<a id="user-content-bluebird-promise-api" class="anchor" href="#bluebird-promise-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bluebird Promise API</h3>
+
+<p><a href="http://bluebirdjs.com/docs/api-reference.html">http://bluebirdjs.com/docs/api-reference.html</a></p>
 
 <script src="main.js"></script></body></html>

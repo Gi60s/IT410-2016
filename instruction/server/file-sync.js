@@ -70,7 +70,7 @@ module.exports = function(username, password) {
                                 '<link rel="stylesheet" href="main.css">' +
                                 '</head><body><div id="Main" class="markdown-body">\n' +
                                 content +
-                                '\n<script resources="main.js"></script>' +
+                                '\n<script src="main.js"></script>' +
                                 '</body></html>';
                             console.log('Transpiled: ' + key);
                             return writeFile(dest, html, 'utf8');
