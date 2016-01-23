@@ -1,12 +1,13 @@
 "use strict";
 var chokidar            = require('chokidar');
+var crypto              = require('crypto');
 var fs                  = require('fs');
 var path                = require('path');
 var Promise             = require('bluebird');
 
 var distDirectory = path.resolve(__dirname, '../dist');
 var readFile = Promise.promisify(fs.readFile);
-var srcDirectory = path.resolve(__dirname, '../resources');
+var srcDirectory = path.resolve(__dirname, '../src');
 var writeFile = Promise.promisify(fs.writeFile);
 
 module.exports = function(username, password) {

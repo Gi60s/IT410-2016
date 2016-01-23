@@ -2,6 +2,5 @@
 
 ## Table of Contents
 
-Lesson 5
-
- - [Asynchronous JavaScript](http://www.google.com)
+ - [Asynchronous JavaScript](/asynchronous-javascript.html)
+ - [Promises](/promises.html)
