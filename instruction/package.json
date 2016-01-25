@@ -1,0 +1,29 @@
+{
+  "name": "it410-instruction",
+  "version": "0.0.1",
+  "description": "Material taught in course.",
+  "main": "index.js",
+  "scripts": {},
+  "bin": {
+    "instruct": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gi60s/IT410.git"
+  },
+  "author": "James Speirs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gi60s/IT410/issues"
+  },
+  "homepage": "https://github.com/Gi60s/IT410#readme",
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "chokidar": "^1.4.2",
+    "command-line-args": "^2.1.4",
+    "express": "^4.13.3",
+    "github-markdown-css": "^2.2.0",
+    "inquirer": "^0.11.3",
+    "request": "^2.67.0"
+  }
+}
