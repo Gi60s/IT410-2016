@@ -1,6 +1,7 @@
 "use strict";
 var expect = require('chai').expect;
 var math = require('../math');
+var Promise = require('bluebird');
 
 describe('math', function() {
 
@@ -27,5 +28,20 @@ describe('math', function() {
         });
 
     })
+
+    describe('addEventually', function() {
+
+        it('returns a promise', function() {
+            expect(math.addEventually(2, 3)).to.be.instanceof(Promise);
+        });
+
+        it('adds two numbers', function() {
+            return math.addEventually(2, 3)
+                .then(function(result) {
+                    expect(result).to.be.equal(5);
+                });
+        });
+
+    });
 
 });
