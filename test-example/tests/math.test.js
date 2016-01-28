@@ -24,7 +24,7 @@ describe('math', function() {
         });
 
         it('one negative, one positive', function() {
-            expect(math.add(-2, 3)).to.be.equal(5);
+            expect(math.absAdd(-2, 3)).to.be.equal(5);
         });
 
     })
@@ -36,10 +36,15 @@ describe('math', function() {
         });
 
         it('adds two numbers', function() {
-            return math.addEventually(2, 3)
+            var p = math.addEventually(2, 3)
                 .then(function(result) {
                     expect(result).to.be.equal(5);
+                    return 5;
                 });
+            p.then(function(value) {
+                console.log(value);
+            });
+            return p;
         });
 
     });
