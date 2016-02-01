@@ -1,0 +1,50 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-command-line-arguments" class="anchor" href="#command-line-arguments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command Line Arguments</h1>
+
+<hr>
+
+<p>It is possible to read the command line arguments that were used to start your application.</p>
+
+<h4>
+<a id="user-content-exercise" class="anchor" href="#exercise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>Create a JavaScript file called "command-line-args.js".</li>
+<li>Log to the console <code>process.argv</code>.</li>
+<li>Run your application with <code>node command-line-args</code> and look at the output.</li>
+<li>Run it again with <code>node command-line-args foo bar --baz</code> and look at the output.</li>
+</ol>
+
+<h4>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h4>
+
+<ol>
+<li>From running your application, what does the first argument represent?</li>
+<li>What does the second argument represent?</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-parsing-command-line-arguments" class="anchor" href="#parsing-command-line-arguments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parsing Command Line Arguments</h2>
+
+<p>There are several modules that I recommend for parsing command line arguments.</p>
+
+<ul>
+<li>
+<a href="https://www.npmjs.com/package/command-line-args">command-line-args</a> - A module for parsing command line arguments.</li>
+<li>
+<a href="https://www.npmjs.com/package/command-line-callback">command-line-callback</a> - A module for building applications that accepts git-style commands.</li>
+<li>
+<a href="https://www.npmjs.com/package/commander">commander</a> - A module that provides a complete (albiet complex) solution for command line arguments and git-style commands.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-current-working-directory" class="anchor" href="#current-working-directory" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Current Working directory</h2>
+
+<p>At times when using command line arguments an argument may include a file path that should be used by the application. If the file path is relative, you can use <code>process.cwd()</code> to get the directory from which the application was launched.</p>
+
+<script src="main.js"></script></body></html>

@@ -1,0 +1,161 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-process" class="anchor" href="#process" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Process</h1>
+
+<hr>
+
+<h2>
+<a id="user-content-what-is-a-process" class="anchor" href="#what-is-a-process" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is a Process</h2>
+
+<p>A process is a running computer program. When we write a NodeJS application and then run it <code>node myapp.js</code> we create a running process for our NodeJS application.</p>
+
+<p>Some processes are meant to be run once and then terminate. Some processes are meant to run indefinitely.</p>
+
+<h3>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h3>
+
+<ol>
+<li>What is an example of an application that should run once and then terminate?</li>
+<li>What is an example of an application that should run indefinitely?</li>
+<li>In NodeJS, what happens if an Error is thrown and not caught?</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-uncaught-exceptions-errors" class="anchor" href="#uncaught-exceptions-errors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Uncaught Exceptions (Errors)</h2>
+
+<p>If your program throws an error and it is not caught then your program will crash.</p>
+
+<h3>
+<a id="user-content-questions-1" class="anchor" href="#questions-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h3>
+
+<ol>
+<li>How can you catch all errors that might be thrown?</li>
+<li>Should you catch all errors to prevent a program crash?</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-catch-all-errors" class="anchor" href="#catch-all-errors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Catch All Errors</h2>
+
+<p>This is how you can catch all errors in NodeJS, <strong>you shouldn't</strong>.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">process</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>uncaughtException<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Caught exception: <span class="pl-pds">'</span></span> <span class="pl-k">+</span> err);
+});</pre></div>
+
+<blockquote>
+<p>By the very nature of how throw works in JavaScript, there is almost never any way to safely "pick up where you left off", without leaking references, or creating some other sort of undefined brittle state. <a href="https://nodejs.org/api/domain.html">https://nodejs.org/api/domain.html</a></p>
+</blockquote>
+
+<p>Some errors are safe to recover from, for example: You've created a web server. A client makes a request to your webserver for a specific file. You attempt to read the file but it doesn't exist, throwing an error. You can catch the error and return a 404 status code (file not found) and your code can continue to run with stability.</p>
+
+<p>If your process becomes unstable your best option is to shut it down.</p>
+
+<hr>
+
+<h2>
+<a id="user-content-the-pm2-daemon" class="anchor" href="#the-pm2-daemon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The PM2 Daemon</h2>
+
+<p>Pronounced [dee-muh n] <a href="http://dictionary.reference.com/browse/daemon">http://dictionary.reference.com/browse/daemon</a></p>
+
+<p>A daemon is a computer process that runs in the background and often starts up with the operating system. Often they are used to start other processes.</p>
+
+<p>PM2 is a NodeJS module that is best installed globally on the machine. It's primary role is to start your application and keep it running. If your program crashes, it starts it again.</p>
+
+<h4>
+<a id="user-content-exercise" class="anchor" href="#exercise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>Visit <a href="http://pm2.keymetrics.io/docs/usage/quick-start/">http://pm2.keymetrics.io/docs/usage/quick-start/</a> in your browser and follow the installation instructions.</li>
+<li>Create a JavaScript file that:
+
+<ul>
+<li>Writes to the console <code>I'm running</code>.</li>
+<li>Runs a function every 1 second, using <code>setInterval</code>. This function will get a random number using <code>Math.random()</code>. If the number is less than <code>.2</code> then throw an Error. Otherwise log to the console <code>Still running.</code>
+</li>
+</ul>
+</li>
+<li>Start your application as you normally would <code>node app.js</code> and watch it until it crashes.</li>
+<li>Use PM2 to start your application.</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-exercise-solution" class="anchor" href="#exercise-solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise Solution</h4>
+
+<p>JavaScript code - app.js</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>I'm running<span class="pl-pds">"</span></span>);
+<span class="pl-c1">setInterval</span>(<span class="pl-k">function</span>() {
+  <span class="pl-k">if</span> (<span class="pl-smi">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">&lt;</span> <span class="pl-c1">0.2</span>) <span class="pl-k">throw</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>Crash!<span class="pl-pds">'</span></span>);
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Still running<span class="pl-pds">'</span></span>);
+}, <span class="pl-c1">1000</span>);</pre></div>
+
+<p>Console command</p>
+
+<div class="highlight highlight-source-shell"><pre>pm2 start app.js</pre></div>
+
+<h4>
+<a id="user-content-questions-2" class="anchor" href="#questions-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h4>
+
+<ol>
+<li>What does the status report show you? You can use <code>pm2 status</code> to see it again.</li>
+<li>Where are your console messages being output?</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-useful-pm2-commands" class="anchor" href="#useful-pm2-commands" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Useful PM2 Commands</h2>
+
+<p>Try some of these commands out to see for yourself how easy they are to use and to see their output.</p>
+
+<h3>
+<a id="user-content-process-management" class="anchor" href="#process-management" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Process Management</h3>
+
+<p><code>pm2 status</code> or <code>pm2 list</code> - Get the current status of all running processes.</p>
+
+<p><code>pm2 start &lt;file&gt; --name "App"</code> - Start the node app at  and give it the name "App".</p>
+
+<p><code>pm2 stop &lt;app_name|id&gt;</code> - Stop a specific process.</p>
+
+<p><code>pm2 restart &lt;app_name|id&gt;</code> - Restart a specific process.</p>
+
+<p><code>pm2 start &lt;file&gt; --watch</code> - Start the node app and watch it, files in the same directory, and files in sub-directories for changes. If a change occurs then the app will automatically restart.</p>
+
+<p><code>pm2 stop &lt;app_name|id&gt; --watch</code> - Stop watching for changes.</p>
+
+<h3>
+<a id="user-content-logs" class="anchor" href="#logs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Logs</h3>
+
+<p><code>pm2 logs</code> - Get a live stream of all logs for all pm2 applications.</p>
+
+<p><code>pm2 logs 0</code> - Get a live stream of all logs for a single application.</p>
+
+<h3>
+<a id="user-content-monitoring" class="anchor" href="#monitoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monitoring</h3>
+
+<p><code>pm2 monit</code> - Get CPU and memory usage for all running processes.</p>
+
+<hr>
+
+<h2>
+<a id="user-content-clustering" class="anchor" href="#clustering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Clustering</h2>
+
+<ul>
+<li>Modern CPUs have multiple cores that allow it to process multiple things concurrently.</li>
+<li>Clustering has to do with running your node application on multiple CPUs at the same time.</li>
+<li>Clustering is load balancing for a single machine.</li>
+</ul>
+
+<p><code>pm2 start &lt;file&gt; -i 0</code> - Start clustering on all CPUs.</p>
+
+<p><code>pm2 start &lt;file&gt; -i 2</code> - Start clustering on 2 CPUs.</p>
+
+<p><code>pm2 reload &lt;app_name|id&gt;</code> - Gracefully restart the application. At least one clustered process will be running at all times during the restart. This maintains 100% up time of your application, ideal for production environments.</p>
+
+<script src="main.js"></script></body></html>
