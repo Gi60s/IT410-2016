@@ -10,4 +10,4 @@ function add(a, b, filter) {
 }
 
 add(5);
-add(10, 5);,
+add(10, 5);
