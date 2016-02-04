@@ -101,7 +101,7 @@
         next.setAttribute('href', '#');
         next.addEventListener('click', function(e) {
             e.preventDefault();
-            if (index < pages.length - 1) setPage(index + 1, null);
+            if (index < pages.length) setPage(index + 1, null);
         });
         navInner.appendChild(next);
 
@@ -141,7 +141,7 @@
             prev.className = page <= 1 ? 'disabled' : '';
             prev.setAttribute('href', '?page=' + (page > 0 ? (page - 1) : ''));
 
-            next.className = page >= pages.length - 1 ? 'disabled' : '';
+            next.className = page > pages.length - 1 ? 'disabled' : '';
             next.setAttribute('href', '?page=' + (page < pages.length - 1 ? (page + 1) : ''));
 
             pageNum.innerHTML = 'Page ' + page + ' / ' + pages.length;

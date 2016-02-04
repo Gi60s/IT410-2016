@@ -1,0 +1,198 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-mongodb" class="anchor" href="#mongodb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MongoDB</h1>
+
+<hr>
+
+<h2>
+<a id="user-content-what-is-mongodb" class="anchor" href="#what-is-mongodb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is MongoDB</h2>
+
+<ul>
+<li>It is a <a href="/nosql.html">NoSQL</a> document database.</li>
+<li>It is open source.</li>
+<li>It is built for high performance, high availability, and automatic scaling.</li>
+</ul>
+
+<h4>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h4>
+
+<ol>
+<li>What is availability referring to?</li>
+<li>What is automatic scaling?</li>
+</ol>
+
+<hr>
+
+<h3>
+<a id="user-content-mongodb-documents" class="anchor" href="#mongodb-documents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MongoDB Documents</h3>
+
+<p>Instead of storing rows (like you would do in an SQL database) you store documents. A document is very similar to the JSON object format.</p>
+
+<div class="highlight highlight-source-js"><pre>{
+    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Bob<span class="pl-pds">'</span></span>,
+    age<span class="pl-k">:</span> <span class="pl-c1">25</span>,
+    roles<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>Support<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Developer<span class="pl-pds">'</span></span>]
+}</pre></div>
+
+<h2>
+<a id="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Depending on your operating system, there are a few ways to install MongoDB. Follow the link below to install MongoDB for your specific operating system.</p>
+
+<p>There are also two versions of mongo you can install. The community version is open source and can do everything that the enterprise version does. The enterprise version comes with some extra features that make it easier to manage and monitor your databases.</p>
+
+<ul>
+<li><a href="https://docs.mongodb.org/manual/administration/install-community/">Install Community</a></li>
+<li><a href="https://docs.mongodb.org/manual/administration/install-enterprise/">Install Enterprise</a></li>
+</ul>
+
+<p>Take a few minutes to install <a href="https://docs.mongodb.org/manual/administration/install-community/">MongoDB Community Edition</a> on your machine.</p>
+
+<hr>
+
+<h2>
+<a id="user-content-sql-to-mongodb" class="anchor" href="#sql-to-mongodb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SQL to MongoDB</h2>
+
+<p>There isn't exactly a one-to-one relationship between the concepts you may be familiar with from SQL, but there are similarities.</p>
+
+<ul>
+<li><a href="https://docs.mongodb.org/manual/reference/sql-comparison/">SQL Comparison</a></li>
+<li><a href="https://docs.mongodb.org/manual/reference/sql-aggregation-comparison/">SQL Aggregation</a></li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-mongodb-node-modules" class="anchor" href="#mongodb-node-modules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MongoDB Node Modules</h2>
+
+<p>These two NodeJS modules are very helpful in interfacing NodeJS with MongoDB.</p>
+
+<ul>
+<li>
+<a href="https://www.npmjs.com/package/mongodb">mongodb</a> - Use this module for a simple interface for connecting to your MongoDB instance.</li>
+<li>
+<a href="https://www.npmjs.com/package/mongoose">mongoose</a> - Use this module to establish models and schemas over MongoDB. This allows you to enforce at the server level consistency between documents within a collection.</li>
+</ul>
+
+<h4>
+<a id="user-content-exercise---part-1" class="anchor" href="#exercise---part-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise - Part 1</h4>
+
+<ol>
+<li>Open a terminal.</li>
+<li>Type <code>mongod --help</code> and read up on the help to find:
+
+<ul>
+<li>How to specify a port for your database to listen on.</li>
+<li>How to specify the storage directory for your data.</li>
+</ul>
+</li>
+<li>Start <code>mongod</code> with the port and directory of your choosing, or let them stay at default values.</li>
+</ol>
+
+<h4>
+<a id="user-content-exercise---part-2" class="anchor" href="#exercise---part-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise - Part 2</h4>
+
+<ol>
+<li>Create a directory to play around with MongoDB.</li>
+<li>Add an <code>index.js</code> file to the directory.</li>
+<li>Install the <code>mongodb</code> module using <code>npm</code>.</li>
+<li>Later there will be code samples that you can try out using this file.</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-start-your-mongo-server-and-connect" class="anchor" href="#start-your-mongo-server-and-connect" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Your Mongo Server and Connect</h2>
+
+<div class="highlight highlight-source-shell"><pre>mongod --dbpath=/data --port 27017</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> MongoClient <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mongodb<span class="pl-pds">'</span></span>).<span class="pl-smi">MongoClient</span>;
+
+<span class="pl-c">// Connection URL</span>
+<span class="pl-k">var</span> url <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>mongodb://localhost:27017/myproject<span class="pl-pds">'</span></span>;
+
+<span class="pl-c">// Use connect method to connect to the Server</span>
+<span class="pl-smi">MongoClient</span>.<span class="pl-en">connect</span>(url, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">db</span>) {
+  <span class="pl-k">if</span> (err) {
+      <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-smi">err</span>.<span class="pl-smi">stack</span>);
+  } <span class="pl-k">else</span> {
+      <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Connected correctly to server<span class="pl-pds">"</span></span>);
+      <span class="pl-smi">db</span>.<span class="pl-c1">close</span>();
+  }
+});</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-documentation" class="anchor" href="#documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Documentation</h2>
+
+<ul>
+<li>The API can be found at <a href="http://mongodb.github.io/node-mongodb-native/2.1/api/">http://mongodb.github.io/node-mongodb-native/2.1/api/</a>.</li>
+<li>The API has a lot of function calls and hundreds if not thousands of examples.</li>
+<li>Functions in the API that take a callback often also will return a promise if no callback is supplied.</li>
+</ul>
+
+<h3>
+<a id="user-content-collections" class="anchor" href="#collections" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Collections</h3>
+
+<p>Before you can start reading from and writing to your database, you'll have to specify the collection that you are interested in. If you specify a collection that doesn't exist then it will create it for you when you do an insert.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">MongoClient</span>.<span class="pl-en">connect</span>(url, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">db</span>) {
+
+    <span class="pl-k">var</span> collection <span class="pl-k">=</span> <span class="pl-smi">db</span>.<span class="pl-en">collection</span>(<span class="pl-s"><span class="pl-pds">'</span>test<span class="pl-pds">'</span></span>);
+
+    <span class="pl-smi">collection</span>.<span class="pl-en">insertOne</span>({ foo<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span> })
+        .<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">result</span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">db</span>.<span class="pl-c1">close</span>();
+        })
+        .<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">e</span>) {
+            <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-smi">e</span>.<span class="pl-smi">stack</span>);
+        });
+
+});</pre></div>
+
+<h3>
+<a id="user-content-insert" class="anchor" href="#insert" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Insert</h3>
+
+<p>There are various insert methods. Here are two:</p>
+
+<ul>
+<li><a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertOne">insertOne</a></li>
+<li><a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany">insertMany</a></li>
+</ul>
+
+<h3>
+<a id="user-content-find" class="anchor" href="#find" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Find</h3>
+
+<p>You can use find to get back a cursor. A cursor is a pointer to data. You can iterate over the cursor to get the data from the database.</p>
+
+<ul>
+<li><a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find">find</a></li>
+<li><a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html">cursor</a></li>
+</ul>
+
+<p>Two common functions that you can use from the cursor are <a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#forEach">forEach</a> and <a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#each">each</a>.</p>
+
+<h3>
+<a id="user-content-update" class="anchor" href="#update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update</h3>
+
+<ul>
+<li>
+<a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndUpdate">findOneAndUpdate</a> - An atomic operation that performs a lock on the database.</li>
+<li>
+<a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#updateOne">updateOne</a> - Update the first document that matches the filter.</li>
+<li>
+<a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#updateMany">updateMany</a> - Update multiple documents at once.</li>
+</ul>
+
+<h3>
+<a id="user-content-delete" class="anchor" href="#delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Delete</h3>
+
+<ul>
+<li>
+<a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteMany">deleteMany</a> - Delete all documents that match the filter.</li>
+<li>
+<a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteOne">deleteOne</a> - Delete the first document that matches the filter.</li>
+</ul>
+
+<script src="main.js"></script></body></html>

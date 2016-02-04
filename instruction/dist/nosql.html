@@ -1,0 +1,92 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-sql-vs-nosql" class="anchor" href="#sql-vs-nosql" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SQL vs NoSQL</h1>
+
+<hr>
+
+<h2>
+<a id="user-content-data-storage" class="anchor" href="#data-storage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Storage</h2>
+
+<h3>
+<a id="user-content-sql" class="anchor" href="#sql" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SQL</h3>
+
+<ul>
+<li>Data is stored in relational model with rows and columns within tables.</li>
+<li>A table represents all entities with a common model.</li>
+<li>A row represents a single entity.</li>
+<li>Each column represents a piece of the entity and has a fixed type, size, etc.</li>
+</ul>
+
+<h3>
+<a id="user-content-nosql" class="anchor" href="#nosql" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NoSQL</h3>
+
+<ul>
+<li>An unstructured data storage database.</li>
+<li>Each document represents an entity.</li>
+<li>Each document can be entirely different from other documents.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-scalability" class="anchor" href="#scalability" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scalability</h2>
+
+<h3>
+<a id="user-content-sql-1" class="anchor" href="#sql-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SQL</h3>
+
+<ul>
+<li>Data scales vertically.</li>
+<li>If you have more data you get more disc space.</li>
+<li>If you need faster data you get a faster computer.</li>
+<li>Replication of data across servers is complex and inefficient.</li>
+<li>Difficult to distribute data for load balancing.</li>
+</ul>
+
+<h3>
+<a id="user-content-nosql-1" class="anchor" href="#nosql-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NoSQL</h3>
+
+<ul>
+<li>Data scales horizontally.</li>
+<li>It is easy to spread data between multiple servers.</li>
+<li>Easy to get higher performance.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-acid" class="anchor" href="#acid" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A.C.I.D</h2>
+
+<ul>
+<li>
+<strong>Automicity</strong> - Transactions are all or nothing. If part of the transaction fails then it all fails and the database is left unchanged.</li>
+<li>
+<strong>Consistency</strong> - Each database transaction guarantees that the data is in a valid state.</li>
+<li>
+<strong>Isolation</strong> - Transactions executed one after another will happen in a serialized way.</li>
+<li>
+<strong>Durability</strong> - Once a transaction has been committed then the data is stored to disc and data will not be lost in the case of a server shutdown.</li>
+</ul>
+
+<p>Most <strong>SQL</strong> databases conform to the ACID standard. <strong>NoSQL</strong> databases have varying degrees of ACID compliance.</p>
+
+<h4>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h4>
+
+<ol>
+<li>What are some advantages and disadvantages of ACID compliance?</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-automatic-vs-manual-transmission" class="anchor" href="#automatic-vs-manual-transmission" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Automatic vs. Manual Transmission</h2>
+
+<blockquote>
+<p>SQL databases are like automatic transmission and NoSQL databases are like manual transmission. Once you switch to NoSQL, you become responsible for a lot of work that the system takes care of automatically in a relational database system. Similar to what happens when you pick manual over automatic transmission. Secondly, NoSQL allows you to eke more performance out of the system by eliminating a lot of integrity checks done by relational databases from the database tier. Again, this is similar to how you can get more performance out of your car by driving a manual transmission versus an automatic transmission vehicle.</p>
+
+<p>However the most notable similarity is that just like most of us can’t really take advantage of the benefits of a manual transmission vehicle because the majority of our driving is sitting in traffic on the way to and from work, there is a similar harsh reality in that most sites aren’t at Google or Facebook’s scale and thus have no need for a Bigtable or Cassandra.</p>
+
+<p><a href="http://www.25hoursaday.com/weblog/2010/03/29/TheNoSQLDebateAutomaticVsManualTransmission.aspx">The NoSQL Debate - Automatic vs Manual Transmission</a></p>
+</blockquote>
+
+<script src="main.js"></script></body></html>
