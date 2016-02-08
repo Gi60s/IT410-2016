@@ -1,0 +1,224 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-rest-and-express" class="anchor" href="#rest-and-express" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>REST and Express</h1>
+
+<hr>
+
+<ul>
+<li>REST was introduced in the year 2000.</li>
+<li>REST came about as a way to improve modularization of the web (separate the front-end from the back-end).</li>
+<li>REST is stateless, so the client has to maintain session and state information.</li>
+<li>The protocol is HTTP (or HTTPS).</li>
+<li>URL paths are resources and keys (no verbs).</li>
+</ul>
+
+<h4>
+<a id="user-content-url-paths" class="anchor" href="#url-paths" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Url Paths</h4>
+
+<ul>
+<li>
+<strong>Good Example</strong> - GET /user/2341</li>
+<li>
+<strong>Bad Example</strong> - GET /getUser/2341</li>
+</ul>
+
+<h4>
+<a id="user-content-exercise" class="anchor" href="#exercise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>Create a file called <code>rest.js</code>
+</li>
+<li>Install express with <code>npm install express</code>
+</li>
+<li>Inside the <code>rest.js</code> file include the code from the <a href="http://expressjs.com/en/starter/hello-world.html">Express Hello World</a> example (or copy it from below).</li>
+<li>Start your server using <code>node rest.js</code>
+</li>
+<li>Open a web browser and navigate to http://localhost:3000/ (or whatever port you used).</li>
+</ol>
+
+<p><strong>rest.js</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> express <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>express<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-en">express</span>();
+
+<span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+  <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello World!<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-smi">app</span>.<span class="pl-en">listen</span>(<span class="pl-c1">3000</span>, <span class="pl-k">function</span> () {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Example app listening on port 3000!<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-http-methods" class="anchor" href="#http-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HTTP Methods</h2>
+
+<ul>
+<li>There are many different methods that you can use for your REST services.</li>
+<li>Each method has guidelines, but not restrictions.</li>
+</ul>
+
+<p>The most commonly used methods are:</p>
+
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>DELETE</li>
+</ul>
+
+<hr>
+
+<h3>
+<a id="user-content-get" class="anchor" href="#get" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GET</h3>
+
+<ul>
+<li>Probably the most commonly used method.</li>
+<li>Shouldn't be used to save data.</li>
+<li>Should be idempotent.</li>
+</ul>
+
+<h4>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h4>
+
+<ol>
+<li>What does <em>idempotent</em> mean?</li>
+<li>How could you send data to be saved using GET?</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-answers" class="anchor" href="#answers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Answers</h4>
+
+<ol>
+<li>What does <em>idempotent</em> mean?
+<strong>No matter how many times to do an operation the result is the same.</strong>
+</li>
+<li>How could you send data to be saved using GET?
+<strong>You could send information using query parameters, but it's not a good idea to send information with GET.</strong>
+</li>
+</ol>
+
+<h4>
+<a id="user-content-exercise-1" class="anchor" href="#exercise-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>In your <code>rest.js</code> file change the output from "Hello, World!" to "GET"</li>
+<li>Restart your server.</li>
+<li>Through your browser, test that "GET" is now returned when you visit http://localhost:3000.</li>
+</ol>
+
+<hr>
+
+<h3>
+<a id="user-content-post" class="anchor" href="#post" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>POST</h3>
+
+<ul>
+<li>With a POST you can send information in the body of the request.</li>
+<li>Should not be idempotent - each time it's used it should make a change.</li>
+</ul>
+
+<h2>
+<a id="user-content---is-not-the-crud-equivalent-of-create-although-it-is-often-similar" class="anchor" href="#--is-not-the-crud-equivalent-of-create-although-it-is-often-similar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>- Is not the CRUD equivalent of <em>create</em>, although it is often similar.</h2>
+
+<h4>
+<a id="user-content-exercise-2" class="anchor" href="#exercise-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>In your <code>rest.js</code> file create a POST endpoint to <code>/</code> (same as GET, but with POST).</li>
+<li>Have the response be "POST".</li>
+<li>Restart your server.</li>
+<li>Through your browser, POST to the URL http://localhost:3000 and you should get the response "POST".</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-question" class="anchor" href="#question" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Question</h4>
+
+<ol>
+<li>How do you POST through your browser?</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-answer" class="anchor" href="#answer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Answer</h4>
+
+<ol>
+<li>How do you POST through your browser?
+<strong>You can use a web form, or do an AJAX POST with JavaScript, or you can use a REST client.</strong>
+</li>
+</ol>
+
+<p>There are many REST clients that you can download to test your REST endpoints. If your using the Chrome browser I would recommend either the <a href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo?hl=en-US&amp;utm_source=chrome-ntp-launcher">Advanced REST client</a> or <a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en-US&amp;utm_source=chrome-ntp-launcher">Postman</a>.</p>
+
+<h4>
+<a id="user-content-exercise-3" class="anchor" href="#exercise-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>Find a REST client that you'd like to use and install it.</li>
+<li>Start the REST client.</li>
+<li>Make a POST to your server.</li>
+<li>You should get back: "POST".</li>
+</ol>
+
+<hr>
+
+<h3>
+<a id="user-content-rest-request-body" class="anchor" href="#rest-request-body" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>REST Request Body</h3>
+
+<p>In express if you want to get the body of the request you may want to use the <a href="https://www.npmjs.com/package/body-parser">body-parser module</a> that you can install with <code>npm install body-parser</code>.</p>
+
+<ul>
+<li>With this modules, if a request has a body then the module will attempt to parse it.</li>
+<li>Without this module if you want the body you'll have to manage gzip, deflate, and binary conversion on your own.</li>
+</ul>
+
+<p>Look at the <a href="https://www.npmjs.com/package/body-parser#examples">body-parser examples</a> and then complete the following exercise.</p>
+
+<h4>
+<a id="user-content-exercise-4" class="anchor" href="#exercise-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<p>In your <code>rest.js</code> file modify the post instruction so that it no long returns "POST", but instead returns the content that was sent in the body in all capital letters. You should use the bodyParser.text() to accomplish this.</p>
+
+<hr>
+
+<h4>
+<a id="user-content-solution" class="anchor" href="#solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> express <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>express<span class="pl-pds">'</span></span>)
+<span class="pl-k">var</span> bodyParser <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>body-parser<span class="pl-pds">'</span></span>)
+
+<span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-en">express</span>();
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">bodyParser</span>.<span class="pl-c1">text</span>())
+
+<span class="pl-smi">app</span>.<span class="pl-en">post</span>(<span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>, urlencodedParser, <span class="pl-k">function</span> (<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+    <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-smi">req</span>.<span class="pl-c1">body</span>.<span class="pl-c1">toUpperCase</span>());
+});</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-put" class="anchor" href="#put" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PUT</h2>
+
+<ul>
+<li>With a PUT you can send information in the body of the request.</li>
+<li>Should be idempotent - no matter how many times you call it, the result is the same.</li>
+<li>Is not the CRUD equivalent of <em>update</em>. It can also be used to create. Example: Put the data to this state. If it doesn't exist then it creates it into that state.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-delete" class="anchor" href="#delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE</h2>
+
+<ul>
+<li>With a DELETE you shouldn't send information with the body.</li>
+<li>Should be idempotent - no matter how many times you call it, the result is the same.</li>
+<li>If is is already deleted it shouldn't complain because the job is done.</li>
+</ul>
+
+<script src="main.js"></script></body></html>
