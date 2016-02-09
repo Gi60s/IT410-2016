@@ -85,7 +85,7 @@ The most commonly used methods are:
 - With a POST you can send information in the body of the request.
 - Should not be idempotent - each time it's used it should make a change.
 - Is not the CRUD equivalent of *create*, although it is often similar.
-- 
+
 #### Exercise
 
 1. In your `rest.js` file create a POST endpoint to `/` (same as GET, but with POST).
@@ -141,7 +141,7 @@ var bodyParser = require('body-parser')
 var app = express();
 app.use(bodyParser.text())
  
-app.post('/', urlencodedParser, function (req, res) {
+app.post('/', function (req, res) {
     res.send(req.body.toUpperCase());
 });
 ```
@@ -158,7 +158,7 @@ app.post('/', urlencodedParser, function (req, res) {
 
 ## DELETE
 
-- With a DELETE you shouldn't send information with the body.
+- With a DELETE you can send information with the body.
 - Should be idempotent - no matter how many times you call it, the result is the same.
 - If is is already deleted it shouldn't complain because the job is done.
 

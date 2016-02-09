@@ -1,0 +1,246 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-passport-and-express" class="anchor" href="#passport-and-express" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Passport and Express</h1>
+
+<hr>
+
+<h2>
+<a id="user-content-what-is-passport" class="anchor" href="#what-is-passport" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is Passport?</h2>
+
+<blockquote>
+<p>Passport is authentication <em>middleware</em> for Node.js. Extremely flexible and modular, Passport can be unobtrusively dropped in to any Express-based web application.</p>
+
+<p><a href="http://passportjs.org/">http://passportjs.org/</a></p>
+</blockquote>
+
+<ul>
+<li>It reduces the amount of work you need to do for authentication.</li>
+<li>It has the ability to do local authentication.</li>
+<li>It has OAuth capabilities (use Facebook, Google, or other services to log in).</li>
+<li>It is modular, you need to include the components that you are interested in.</li>
+</ul>
+
+<p><a href="http://passportjs.org/docs">Passport Documentation</a></p>
+
+<hr>
+
+<h2>
+<a id="user-content-strategies" class="anchor" href="#strategies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Strategies</h2>
+
+<p>Using passport you'll hear about strategies. A strategy:</p>
+
+<ul>
+<li>Is a module that integrates with Passport.</li>
+<li>Handles a specific type of authentication (local, OAuth, etc).</li>
+<li>Must be installed (via npm) independently of the Passport module.</li>
+<li>Has its own documentation with instructions for usage.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-starter-code-example" class="anchor" href="#starter-code-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Starter Code Example</h2>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// include modules</span>
+<span class="pl-k">var</span> bodyParser          <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>body-parser<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> cookieParser        <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cookie-parser<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> express             <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>express<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> LocalStrategy       <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>passport-local<span class="pl-pds">'</span></span>).<span class="pl-smi">Strategy</span>;
+<span class="pl-k">var</span> passport            <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>passport<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> session             <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>express-session<span class="pl-pds">'</span></span>);
+
+<span class="pl-c">// initialize express app</span>
+<span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-en">express</span>();
+
+<span class="pl-c">// tell passport to use a local strategy and tell it how to validate a username and password</span>
+<span class="pl-smi">passport</span>.<span class="pl-en">use</span>(<span class="pl-k">new</span> <span class="pl-en">LocalStrategy</span>(<span class="pl-k">function</span>(<span class="pl-smi">username</span>, <span class="pl-smi">password</span>, <span class="pl-smi">done</span>) {
+    <span class="pl-k">if</span> (username <span class="pl-k">&amp;&amp;</span> password <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>pass<span class="pl-pds">'</span></span>) <span class="pl-k">return</span> <span class="pl-en">done</span>(<span class="pl-c1">null</span>, { username<span class="pl-k">:</span> username });
+    <span class="pl-k">return</span> <span class="pl-en">done</span>(<span class="pl-c1">null</span>, <span class="pl-c1">false</span>);
+}));
+
+<span class="pl-c">// tell passport how to turn a user into serialized data that will be stored with the session</span>
+<span class="pl-smi">passport</span>.<span class="pl-en">serializeUser</span>(<span class="pl-k">function</span>(<span class="pl-smi">user</span>, <span class="pl-smi">done</span>) {
+    <span class="pl-en">done</span>(<span class="pl-c1">null</span>, <span class="pl-smi">user</span>.<span class="pl-smi">username</span>);
+});
+
+<span class="pl-c">// tell passport how to go from the serialized data back to the user</span>
+<span class="pl-smi">passport</span>.<span class="pl-en">deserializeUser</span>(<span class="pl-k">function</span>(<span class="pl-smi">id</span>, <span class="pl-smi">done</span>) {
+    <span class="pl-en">done</span>(<span class="pl-c1">null</span>, { username<span class="pl-k">:</span> id });
+});
+
+<span class="pl-c">// tell the express app what middleware to use</span>
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">bodyParser</span>.<span class="pl-en">urlencoded</span>({ extended<span class="pl-k">:</span> <span class="pl-c1">true</span> }));
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-en">cookieParser</span>());
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-en">session</span>({ secret<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>secret key<span class="pl-pds">'</span></span>, resave<span class="pl-k">:</span> <span class="pl-c1">false</span>, saveUninitialized<span class="pl-k">:</span> <span class="pl-c1">true</span> }));
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">passport</span>.<span class="pl-en">initialize</span>());
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">passport</span>.<span class="pl-en">session</span>());
+
+<span class="pl-c">// home page</span>
+<span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+    <span class="pl-k">if</span> (<span class="pl-smi">req</span>.<span class="pl-smi">user</span>) <span class="pl-k">return</span> <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello, <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-smi">req</span>.<span class="pl-smi">user</span>.<span class="pl-smi">username</span>);
+    <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello, Stranger!<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-c">// specify a URL that only authenticated users can hit</span>
+<span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>/protected<span class="pl-pds">'</span></span>,
+    <span class="pl-k">function</span>(<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-smi">req</span>.<span class="pl-smi">user</span>) <span class="pl-k">return</span> <span class="pl-smi">res</span>.<span class="pl-en">sendStatus</span>(<span class="pl-c1">401</span>);
+        <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>You have access.<span class="pl-pds">'</span></span>);
+    }
+);
+
+<span class="pl-c">// specify the login url</span>
+<span class="pl-smi">app</span>.<span class="pl-en">put</span>(<span class="pl-s"><span class="pl-pds">'</span>/auth<span class="pl-pds">'</span></span>,
+    <span class="pl-smi">passport</span>.<span class="pl-en">authenticate</span>(<span class="pl-s"><span class="pl-pds">'</span>local<span class="pl-pds">'</span></span>),
+    <span class="pl-k">function</span>(<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+        <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>You are authenticated, <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-smi">req</span>.<span class="pl-smi">user</span>.<span class="pl-smi">username</span>);
+    });
+
+<span class="pl-c">// log the user out</span>
+<span class="pl-smi">app</span>.<span class="pl-en">delete</span>(<span class="pl-s"><span class="pl-pds">'</span>/auth<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+    <span class="pl-smi">req</span>.<span class="pl-en">logout</span>();
+    <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>You have logged out.<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-c">// start the server listening</span>
+<span class="pl-smi">app</span>.<span class="pl-en">listen</span>(<span class="pl-c1">3000</span>, <span class="pl-k">function</span> () {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Server listening on port 3000.<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-code-break-down" class="anchor" href="#code-break-down" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code Break Down</h2>
+
+<p>This part of the code should look pretty familiar. We include the modules we plan to use and start up the express web server.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// include modules</span>
+<span class="pl-k">var</span> bodyParser          <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>body-parser<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> cookieParser        <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>cookie-parser<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> express             <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>express<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> LocalStrategy       <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>passport-local<span class="pl-pds">'</span></span>).<span class="pl-smi">Strategy</span>;
+<span class="pl-k">var</span> passport            <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>passport<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> session             <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>express-session<span class="pl-pds">'</span></span>);
+
+<span class="pl-c">// initialize express app</span>
+<span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-en">express</span>();
+
+<span class="pl-k">...</span>
+
+<span class="pl-c">// start the server listening</span>
+<span class="pl-smi">app</span>.<span class="pl-en">listen</span>(<span class="pl-c1">3000</span>, <span class="pl-k">function</span> () {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Server listening on port 3000.<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<p>Here we tell express what middleware to use:</p>
+
+<ul>
+<li>The body-parser will extract body information from the request and store it at req.body for each request.</li>
+<li>The cookie-parser will determine what cookies the client has on it and store it at req.cookie.</li>
+<li>The express-session works with cookies to create and maintain session information.</li>
+<li>The passport.initialize() is required to initialize passport.</li>
+<li>The passport.session() must be added at some point <strong>after</strong> express-session middleware. It augments express-sessions by adding authentication information to the session.</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">...</span>
+
+<span class="pl-c">// tell the express app what middleware to use</span>
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">bodyParser</span>.<span class="pl-en">urlencoded</span>({ extended<span class="pl-k">:</span> <span class="pl-c1">true</span> }));
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-en">cookieParser</span>());
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-en">session</span>({ secret<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>secret key<span class="pl-pds">'</span></span>, resave<span class="pl-k">:</span> <span class="pl-c1">false</span>, saveUninitialized<span class="pl-k">:</span> <span class="pl-c1">true</span> }));
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">passport</span>.<span class="pl-en">initialize</span>());
+<span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">passport</span>.<span class="pl-en">session</span>());
+
+<span class="pl-k">...</span></pre></div>
+
+<p>This code tells passport of an authentication strategy that we will use.</p>
+
+<ul>
+<li>It is possible to have more than one strategy.</li>
+<li>The local strategy expects two parameters to be sent with the request, <em>username</em> and <em>password</em>.</li>
+<li>It is possible to change the names of those parameters through the local strategy configuration.</li>
+<li>The done function must be called after you are done checking the username and password.
+
+<ul>
+<li>If there was an error then the first parameter of <code>done</code> will be that error.</li>
+<li>If there is no error then the first parameters should be null and the second can be the user object or false on failed authentication.</li>
+</ul>
+</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">...</span>
+
+<span class="pl-c">// tell passport to use a local strategy and tell it how to validate a username and password</span>
+<span class="pl-smi">passport</span>.<span class="pl-en">use</span>(<span class="pl-k">new</span> <span class="pl-en">LocalStrategy</span>(<span class="pl-k">function</span>(<span class="pl-smi">username</span>, <span class="pl-smi">password</span>, <span class="pl-smi">done</span>) {
+    <span class="pl-k">if</span> (username <span class="pl-k">&amp;&amp;</span> password <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>pass<span class="pl-pds">'</span></span>) <span class="pl-k">return</span> <span class="pl-en">done</span>(<span class="pl-c1">null</span>, { username<span class="pl-k">:</span> username });
+    <span class="pl-k">return</span> <span class="pl-en">done</span>(<span class="pl-c1">null</span>, <span class="pl-c1">false</span>);
+}));
+
+<span class="pl-k">...</span></pre></div>
+
+<ul>
+<li>With session management, when a user authenticates, the user object from <code>done</code> can be serialized into a string.</li>
+<li>The deserialize function is used to turn the string back into the user object. This function is called when a request is made and the user is already authenticated.</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">...</span>
+
+<span class="pl-c">// tell passport how to turn a user into serialized data that will be stored with the session</span>
+<span class="pl-smi">passport</span>.<span class="pl-en">serializeUser</span>(<span class="pl-k">function</span>(<span class="pl-smi">user</span>, <span class="pl-smi">done</span>) {
+    <span class="pl-en">done</span>(<span class="pl-c1">null</span>, <span class="pl-smi">user</span>.<span class="pl-smi">username</span>);
+});
+
+<span class="pl-c">// tell passport how to go from the serialized data back to the user</span>
+<span class="pl-smi">passport</span>.<span class="pl-en">deserializeUser</span>(<span class="pl-k">function</span>(<span class="pl-smi">id</span>, <span class="pl-smi">done</span>) {
+    <span class="pl-en">done</span>(<span class="pl-c1">null</span>, { username<span class="pl-k">:</span> id });
+});
+
+<span class="pl-k">...</span></pre></div>
+
+<p>Here we set up routes. If the req parameter has a <code>user</code> property then the user is authenticated.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">...</span>
+
+<span class="pl-c">// home page</span>
+<span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+    <span class="pl-k">if</span> (<span class="pl-smi">req</span>.<span class="pl-smi">user</span>) <span class="pl-k">return</span> <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello, <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-smi">req</span>.<span class="pl-smi">user</span>.<span class="pl-smi">username</span>);
+    <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello, Stranger!<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-c">// specify a URL that only authenticated users can hit</span>
+<span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>/protected<span class="pl-pds">'</span></span>,
+    <span class="pl-k">function</span>(<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-smi">req</span>.<span class="pl-smi">user</span>) <span class="pl-k">return</span> <span class="pl-smi">res</span>.<span class="pl-en">sendStatus</span>(<span class="pl-c1">401</span>);
+        <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>You have access.<span class="pl-pds">'</span></span>);
+    }
+);
+
+<span class="pl-c">// specify the login url</span>
+<span class="pl-smi">app</span>.<span class="pl-en">put</span>(<span class="pl-s"><span class="pl-pds">'</span>/auth<span class="pl-pds">'</span></span>,
+    <span class="pl-smi">passport</span>.<span class="pl-en">authenticate</span>(<span class="pl-s"><span class="pl-pds">'</span>local<span class="pl-pds">'</span></span>),
+    <span class="pl-k">function</span>(<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+        <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>You are authenticated, <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-smi">req</span>.<span class="pl-smi">user</span>.<span class="pl-smi">username</span>);
+    });
+
+<span class="pl-c">// log the user out</span>
+<span class="pl-smi">app</span>.<span class="pl-en">delete</span>(<span class="pl-s"><span class="pl-pds">'</span>/auth<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+    <span class="pl-smi">req</span>.<span class="pl-en">logout</span>();
+    <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-s"><span class="pl-pds">'</span>You have logged out.<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-k">...</span></pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-deeper-understanding" class="anchor" href="#deeper-understanding" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deeper Understanding</h2>
+
+<p>To better understand how these components work together:</p>
+
+<ul>
+<li>Run this code in debug mode.</li>
+<li>Set up breakpoints for the different route callbacks as well as on the LocalStrategy and the serialize/deserialize methods.</li>
+<li>Make GET, PUT, and DELETE requests to the various endpoints.</li>
+</ul>
+
+<script src="main.js"></script></body></html>

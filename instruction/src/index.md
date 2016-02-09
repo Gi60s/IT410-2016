@@ -8,3 +8,5 @@
  - [NoSQL](/nosql.html)
  - [Process](/process.html)
  - [Promises](/promises.html)
+ - [REST](/rest.html)
+ - [User Authentication - Passport and Express](/user-auth.html)

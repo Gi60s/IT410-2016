@@ -118,10 +118,8 @@
 <ul>
 <li>With a POST you can send information in the body of the request.</li>
 <li>Should not be idempotent - each time it's used it should make a change.</li>
+<li>Is not the CRUD equivalent of <em>create</em>, although it is often similar.</li>
 </ul>
-
-<h2>
-<a id="user-content---is-not-the-crud-equivalent-of-create-although-it-is-often-similar" class="anchor" href="#--is-not-the-crud-equivalent-of-create-although-it-is-often-similar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>- Is not the CRUD equivalent of <em>create</em>, although it is often similar.</h2>
 
 <h4>
 <a id="user-content-exercise-2" class="anchor" href="#exercise-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
@@ -195,7 +193,7 @@
 <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-en">express</span>();
 <span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">bodyParser</span>.<span class="pl-c1">text</span>())
 
-<span class="pl-smi">app</span>.<span class="pl-en">post</span>(<span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>, urlencodedParser, <span class="pl-k">function</span> (<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
+<span class="pl-smi">app</span>.<span class="pl-en">post</span>(<span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">req</span>, <span class="pl-smi">res</span>) {
     <span class="pl-smi">res</span>.<span class="pl-c1">send</span>(<span class="pl-smi">req</span>.<span class="pl-c1">body</span>.<span class="pl-c1">toUpperCase</span>());
 });</pre></div>
 
@@ -216,7 +214,7 @@
 <a id="user-content-delete" class="anchor" href="#delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DELETE</h2>
 
 <ul>
-<li>With a DELETE you shouldn't send information with the body.</li>
+<li>With a DELETE you can send information with the body.</li>
 <li>Should be idempotent - no matter how many times you call it, the result is the same.</li>
 <li>If is is already deleted it shouldn't complain because the job is done.</li>
 </ul>
