@@ -1,0 +1,371 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-front-end-basics" class="anchor" href="#front-end-basics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Front-End Basics</h1>
+
+<hr>
+
+<h2>
+<a id="user-content-html5" class="anchor" href="#html5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HTML5</h2>
+
+<ul>
+<li>HTML5 is the latest standard being used to create HTML files.</li>
+<li>The content of the HTML file consists primarily of tags with attributes.</li>
+</ul>
+
+<h3>
+<a id="user-content-tags" class="anchor" href="#tags" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tags</h3>
+
+<ul>
+<li>A tag starts and ends with <code>&lt;</code> and <code>&gt;</code> respectively. For example, the paragraph tag: <code>&lt;p&gt;</code>.</li>
+<li>Many tags also expect a closing tag to match an opening tag, like the paragraph. Closing tags start with <code>&lt;\</code> and end with <code>&gt;</code>. For example: <code>&lt;p&gt;Content&lt;/p&gt;</code>
+</li>
+<li>If a tag doesn't need a closing tag then you just put the opening tag. For example, the horizontal rule tag: <code>&lt;hr&gt;</code>.</li>
+</ul>
+
+<h3>
+<a id="user-content-attributes" class="anchor" href="#attributes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Attributes</h3>
+
+<ul>
+<li>All tags have attributes that can be used to further define how the tag looks or what it should do.</li>
+<li>Attributes exist within the opening tag, for example the image tag takes a source to define what image to display: <code>&lt;img src='image.png'&gt;</code>
+</li>
+<li>Two attributes that all elements can have are <code>class</code> and <code>id</code>.</li>
+</ul>
+
+<h3>
+<a id="user-content-id-attribute" class="anchor" href="#id-attribute" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ID Attribute</h3>
+
+<ul>
+<li>The <code>id</code> attribute defines a unique ID for an element. This id should be unique for the entire page. Example usage: <code>&lt;p id='Main'&gt;&lt;/p&gt;</code>.</li>
+<li>This attribute is often used to find the element using JavaScript.</li>
+<li>CSS also uses the ID attribute to define styles.</li>
+</ul>
+
+<h3>
+<a id="user-content-class-attribute" class="anchor" href="#class-attribute" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class Attribute</h3>
+
+<ul>
+<li>The <code>class</code> attribute defines a CSS class to apply to an element.</li>
+<li>You must define the class style in CSS before this affects the element.</li>
+</ul>
+
+<hr>
+
+<h3>
+<a id="user-content-template" class="anchor" href="#template" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Template</h3>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">title</span>&gt;Title&lt;/<span class="pl-ent">title</span>&gt;
+&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+
+&lt;<span class="pl-ent">section</span>&gt;
+    &lt;<span class="pl-ent">h1</span>&gt;Forest elephants&lt;/<span class="pl-ent">h1</span>&gt;
+    &lt;<span class="pl-ent">section</span>&gt;
+        &lt;<span class="pl-ent">h1</span>&gt;Introduction&lt;/<span class="pl-ent">h1</span>&gt;
+        &lt;<span class="pl-ent">p</span>&gt;In this section, we discuss the lesser known forest elephants.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;/<span class="pl-ent">section</span>&gt;
+    &lt;<span class="pl-ent">section</span>&gt;
+        &lt;<span class="pl-ent">h1</span>&gt;Habitat&lt;/<span class="pl-ent">h1</span>&gt;
+        &lt;<span class="pl-ent">p</span>&gt;Forest elephants do not live in trees but among them.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;/<span class="pl-ent">section</span>&gt;
+    &lt;<span class="pl-ent">aside</span>&gt;
+        &lt;<span class="pl-ent">p</span>&gt;advertising block&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;/<span class="pl-ent">aside</span>&gt;
+&lt;/<span class="pl-ent">section</span>&gt;
+&lt;<span class="pl-ent">footer</span>&gt;
+    &lt;<span class="pl-ent">p</span>&gt;(c) 2010 The Example company&lt;/<span class="pl-ent">p</span>&gt;
+&lt;/<span class="pl-ent">footer</span>&gt;
+
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p>Will produce:</p>
+
+<p><a href="./images/html5-template.png" target="_blank"><img src="./images/html5-template.png" alt="HTML5 Template Output" style="max-width:100%;"></a></p>
+
+<hr>
+
+<h3>
+<a id="user-content-forms" class="anchor" href="#forms" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Forms</h3>
+
+<p>w3schools can be a good resource. In the past it has been criticized for having out of date or inaccurate data, but overall its pretty good and it has some nice learning tools.</p>
+
+<p><a href="http://www.w3schools.com/html/html_forms.asp">w3schools forms</a></p>
+
+<hr>
+
+<h3>
+<a id="user-content-additional-html-resources" class="anchor" href="#additional-html-resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Additional HTML Resources</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Introduction">HTML Introduction</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms_in_HTML">HTML Forms</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5">HTML5</a></li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-css" class="anchor" href="#css" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSS</h2>
+
+<ul>
+<li>CSS stands for <em>Cascading Style Sheets</em>
+</li>
+<li>A style is a grouping of formatting properties.</li>
+<li>You define how an element should look.</li>
+<li>Styles have a hierarchy and can inherit from other styles (thus the cascading part)</li>
+</ul>
+
+<hr>
+
+<h3>
+<a id="user-content-css-selectors" class="anchor" href="#css-selectors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSS Selectors</h3>
+
+<p>A selector tells the CSS <em>where</em> styles should be applied. There are three main types of selectors:</p>
+
+<ul>
+<li>
+<strong>Tag</strong> - A tag selector will match a given tag.</li>
+<li>
+<strong>Class</strong> - A class selector will match elements that have the same class name.</li>
+<li>
+<strong>ID</strong> - An ID selector will apply to the element with the specified ID.</li>
+</ul>
+
+<h4>
+<a id="user-content-tag-selector" class="anchor" href="#tag-selector" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tag Selector</h4>
+
+<p>All tags that match the selector will have the defined style applied. The following rule will make all <code>&lt;p&gt;</code> tags have bold red content.</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-ent">p</span> {
+    <span class="pl-c1"><span class="pl-c1">font-weight</span></span>: <span class="pl-c1">bold</span>;
+    <span class="pl-c1"><span class="pl-c1">color</span></span>: <span class="pl-c1">red</span>;
+}</pre></div>
+
+<h4>
+<a id="user-content-class-selector" class="anchor" href="#class-selector" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class Selector</h4>
+
+<p>Class selectors start with a <code>.</code> (dot). For example:</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-e">.my-class</span> {
+    <span class="pl-c1"><span class="pl-c1">border</span></span>: <span class="pl-c1">1<span class="pl-k">px</span></span> <span class="pl-c1">solid</span> <span class="pl-c1">black</span>;
+}</pre></div>
+
+<h4>
+<a id="user-content-id-selector" class="anchor" href="#id-selector" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ID Selector</h4>
+
+<p>ID selectors start with a <code>#</code>. For example:</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-e">#my-id</span> {
+    <span class="pl-c1"><span class="pl-c1">text-align</span></span>: <span class="pl-c1">center</span>;
+}</pre></div>
+
+<h4>
+<a id="user-content-compound-selectors" class="anchor" href="#compound-selectors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compound Selectors</h4>
+
+<p>It is possible to join multiple selectors together to create more specific selectors.</p>
+
+<p>This example shows how you can make all <code>&lt;p&gt;</code> tags with the <code>important</code> class have a specific style. In your html you'd write <code>&lt;p class='important'&gt; ... &lt;/p&gt;</code> to have this style apply to it.</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-ent">p</span><span class="pl-e">.important</span> {
+    <span class="pl-c1"><span class="pl-c1">font-weight</span></span>: <span class="pl-c1">bold</span>;
+    <span class="pl-c1"><span class="pl-c1">color</span></span>: <span class="pl-c1">red</span>;
+}</pre></div>
+
+<h4>
+<a id="user-content-nested-selectors" class="anchor" href="#nested-selectors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Nested Selectors</h4>
+
+<p>You can also specify how something should look when it is a child or descendant of another selector.</p>
+
+<ul>
+<li>
+<code>div p { ... }</code> - This style rule would apply to all paragraph tags that are somewhere within a div tag.</li>
+<li>
+<code>div &gt; p</code> { ... }` - This style would apply to all paragraph tags that are immediate children of a div tag.</li>
+<li>
+<code>#my-id &gt; p &gt; em { ... }</code> - This style applies to <code>em</code> tags that are immediate children of <code>p</code> tags that are immediate children of the element with attribute ID of <code>my-id</code>.</li>
+</ul>
+
+<h4>
+<a id="user-content-pseudo-selectors" class="anchor" href="#pseudo-selectors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pseudo Selectors</h4>
+
+<p>Pseudo selectors are applied for certain states, such as checked, hover, focus, first-child, etc. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">See a full list of pseudo selectors</a>. A common use for this is to modify the way links work in different states.</p>
+
+<p><a href="./html-snippit/css-link-pseudo.html">This example</a> has this code:</p>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">&lt;<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s1">    <span class="pl-ent">a</span><span class="pl-e">#styled</span> {</span>
+<span class="pl-s1">        <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">inline-block</span>;</span>
+<span class="pl-s1">        <span class="pl-c1"><span class="pl-c1">color</span></span>: <span class="pl-c1">#666</span>;</span>
+<span class="pl-s1">        <span class="pl-c1"><span class="pl-c1">border</span></span>: <span class="pl-c1">1<span class="pl-k">px</span></span> <span class="pl-c1">solid</span> <span class="pl-c1">#CCC</span>;</span>
+<span class="pl-s1">        <span class="pl-c1"><span class="pl-c1">padding</span></span>: <span class="pl-c1">5<span class="pl-k">px</span></span> <span class="pl-c1">10<span class="pl-k">px</span></span>;</span>
+<span class="pl-s1">        <span class="pl-c1"><span class="pl-c1">text-decoration</span></span>: <span class="pl-c1">none</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-c1"><span class="pl-c1">transition</span></span>: background-color <span class="pl-c1">500</span>ms;</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">    <span class="pl-ent">a</span><span class="pl-e">#styled</span><span class="pl-e">:hover</span> {</span>
+<span class="pl-s1">        <span class="pl-c1"><span class="pl-c1">background-color</span></span>: <span class="pl-c1">#e7a61a</span></span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-ent">a</span><span class="pl-e">#styled</span><span class="pl-e">:active</span> {</span>
+<span class="pl-s1">        <span class="pl-c1"><span class="pl-c1">background-color</span></span>: <span class="pl-c1">#e7d816</span>;</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">style</span>&gt;</span>
+
+&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript: void 0<span class="pl-pds">"</span></span>&gt;Example Link&lt;/<span class="pl-ent">a</span>&gt;
+
+&lt;<span class="pl-ent">br</span>&gt;&lt;<span class="pl-ent">br</span>&gt;
+
+&lt;<span class="pl-ent">a</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>styled<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript: void 0<span class="pl-pds">"</span></span>&gt;Example Link&lt;/<span class="pl-ent">a</span>&gt;</pre></div>
+
+<h4>
+<a id="user-content-multiple-selectors" class="anchor" href="#multiple-selectors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple Selectors</h4>
+
+<p>You can combine selectors so that more than one selector uses a specific style by separating selectors by commas.</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-ent">div</span> &gt; <span class="pl-ent">p</span>,
+<span class="pl-ent">ul</span> &gt; <span class="pl-ent">li</span> {
+    <span class="pl-c1"><span class="pl-c1">font-weight</span></span>: <span class="pl-c1">bold</span>;
+}</pre></div>
+
+<h4>
+<a id="user-content-selector-conflicts" class="anchor" href="#selector-conflicts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Selector Conflicts</h4>
+
+<p>Sometimes two selectors will try to apply competing styles to an element.</p>
+
+<p>Rule of thumb: <strong>The more specific selector has precedence or, all things being equal the last selector has precedence.</strong></p>
+
+<h5>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h5>
+
+<ol>
+<li>What is more specific, an ID or a tag?</li>
+<li>What is more specific, a tag or a class?</li>
+<li>Looking at the following code example, what will the <code>&lt;div&gt;</code> look like?</li>
+</ol>
+
+<p>CSS</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-e">#main</span> {
+    <span class="pl-c1"><span class="pl-c1">border-color</span></span>: <span class="pl-c1">blue</span>;
+}
+<span class="pl-ent">div</span> {
+    <span class="pl-c1"><span class="pl-c1">border</span></span>: <span class="pl-c1">1<span class="pl-k">px</span></span> <span class="pl-c1">solid</span> <span class="pl-c1">red</span>;
+}
+<span class="pl-ent">div</span> {
+    <span class="pl-c1"><span class="pl-c1">border-bottom-width</span></span>: <span class="pl-c1">2<span class="pl-k">px</span></span>;
+}</pre></div>
+
+<p>HTML</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">'</span>main<span class="pl-pds">'</span></span>&gt;Hello, World!&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p><a href="./html-snippit/css-conflict.html">See the demo</a>.</p>
+
+<hr>
+
+<h3>
+<a id="user-content-adding-css-to-your-html" class="anchor" href="#adding-css-to-your-html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adding CSS to your HTML</h3>
+
+<p>There are three ways to add CSS to your HTML:</p>
+
+<ol>
+<li>Including a style sheet (generally preferred)</li>
+<li>Include an inline style (great for high performance styles)</li>
+<li>Include a style rule on an element (generally frowned down upon)</li>
+</ol>
+
+<h4>
+<a id="user-content-exercises" class="anchor" href="#exercises" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercises</h4>
+
+<p>Create an index.html file with this content:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">title</span>&gt;Title&lt;/<span class="pl-ent">title</span>&gt;
+&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+    &lt;<span class="pl-ent">p</span>&gt;Hello, World!&lt;/<span class="pl-ent">p</span>&gt;
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h5>
+<a id="user-content-exercise-1-include-style-sheet" class="anchor" href="#exercise-1-include-style-sheet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 1: Include Style Sheet</h5>
+
+<ol>
+<li>Create a file named <code>my-styles.css</code> in the same directory as the index.html file.</li>
+<li>Add css to the my-styles.css file that will make the paragraph text bold, using: <code>font-weight: bold</code>.</li>
+<li>Inside the <code>&lt;head&gt;</code> tag of your index.html file, include your my-style.css using: <code>&lt;link type='text/css' rel='stylesheet' href='my-style.css'&gt;</code>
+</li>
+</ol>
+
+<h5>
+<a id="user-content-exercise-2-inline-style" class="anchor" href="#exercise-2-inline-style" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 2: Inline Style</h5>
+
+<ol>
+<li>Inside the <code>&lt;head&gt;</code> tag of your index.html file and <em>after</em> your included style sheet add a <code>&lt;style&gt;</code> tag.</li>
+<li>Inside that <code>&lt;style&gt;</code> tag add css to make the paragraph text underlined using: <code>text-decoration: underline</code>.</li>
+</ol>
+
+<h5>
+<a id="user-content-exercise-3-element-style-rule" class="anchor" href="#exercise-3-element-style-rule" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise 3: Element Style Rule</h5>
+
+<ol>
+<li>On the <code>&lt;p&gt;</code> tag add an attribute <code>style</code> equal to <code>text-align: center; color: blue;</code>.</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-exercise-solution" class="anchor" href="#exercise-solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise Solution</h4>
+
+<p>CSS</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-ent">p</span> {
+    <span class="pl-c1"><span class="pl-c1">font-weight</span></span>: <span class="pl-c1">bold</span>;
+}</pre></div>
+
+<p>HTML</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">title</span>&gt;Title&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">'</span>text/css<span class="pl-pds">'</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">'</span>stylesheet<span class="pl-pds">'</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">'</span>my-style.css<span class="pl-pds">'</span></span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s1">        <span class="pl-ent">p</span> {</span>
+<span class="pl-s1">            <span class="pl-c1"><span class="pl-c1">text-decoration</span></span>: <span class="pl-c1">underline</span>;</span>
+<span class="pl-s1">        }</span>
+<span class="pl-s1">    &lt;/<span class="pl-ent">style</span>&gt;</span>
+&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">'</span>text-align: center; color: blue;<span class="pl-pds">'</span></span>&gt;Hello, World!&lt;/<span class="pl-ent">p</span>&gt;
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-sass" class="anchor" href="#sass" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SASS</h2>
+
+<p>SASS stands for <em>Syntactically Awesome Style Sheets</em> and it addresses many of the problems introduced by CSS being static.</p>
+
+<ul>
+<li>You can use variables</li>
+<li>You can extend styles</li>
+<li>You can nest styles</li>
+<li>etc.</li>
+</ul>
+
+<p>If you are familiar with LESS then the transition to SASS will be easy. The web community mostly agrees that SASS is better than LESS. It has all of the features of LESS and more.</p>
+
+<p><a href="http://sass-lang.com/guide">Check out the SASS Guide</a></p>
+
+<script src="main.js"></script></body></html>

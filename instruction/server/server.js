@@ -17,7 +17,7 @@ module.exports = function(port) {
         url = req.url.split('?')[0];
         if (url === '/') url = 'index.html';
 
-        if (/\.html$/i.test(url)) {
+        if (/\.(?:html)|(?:png)|(?:jpg)|(?:jpeg)$/i.test(url)) {
             res.sendFile(distDirectory + '/' + url);
         } else if (url === '/markdown.css') {
             res.sendFile(markdownCssPath);
