@@ -54,11 +54,14 @@
 <h3>
 <a id="user-content-template" class="anchor" href="#template" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Template</h3>
 
+<p>(The below template is taken from <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document">https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document</a> and then modified.)</p>
+
 <div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
 &lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
 &lt;<span class="pl-ent">head</span>&gt;
     &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">title</span>&gt;Title&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/main.css<span class="pl-pds">"</span></span>&gt;
 &lt;/<span class="pl-ent">head</span>&gt;
 &lt;<span class="pl-ent">body</span>&gt;
 
@@ -80,6 +83,8 @@
     &lt;<span class="pl-ent">p</span>&gt;(c) 2010 The Example company&lt;/<span class="pl-ent">p</span>&gt;
 &lt;/<span class="pl-ent">footer</span>&gt;
 
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/main.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+
 &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 
@@ -94,7 +99,19 @@
 
 <p>w3schools can be a good resource. In the past it has been criticized for having out of date or inaccurate data, but overall its pretty good and it has some nice learning tools.</p>
 
-<p><a href="http://www.w3schools.com/html/html_forms.asp">w3schools forms</a></p>
+<ul>
+<li><a href="http://www.w3schools.com/html/html_forms.asp">Forms Overview</a></li>
+<li><a href="http://www.w3schools.com/html/html_form_elements.asp">Form Elements</a></li>
+<li><a href="http://www.w3schools.com/html/html_form_input_types.asp">Form Input Types</a></li>
+<li><a href="http://www.w3schools.com/html/html_form_attributes.asp">Form Input Attributes</a></li>
+</ul>
+
+<p>Some things of note for forms on pages using AJAX:</p>
+
+<ul>
+<li>You wont specify an action or a method on the form.</li>
+<li>You'll use JavaScript to submit the form, using AJAX.</li>
+</ul>
 
 <hr>
 

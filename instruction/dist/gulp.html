@@ -1,0 +1,274 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-gulp" class="anchor" href="#gulp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gulp</h1>
+
+<hr>
+
+<ul>
+<li>Gulp is a task orchestration system.</li>
+<li>Run multiple small tasks to accomplish one large end task.</li>
+<li>Similar to Grunt, but less configuration and it runs faster.</li>
+</ul>
+
+<p><a href="https://medium.com/@preslavrachev/gulp-vs-grunt-why-one-why-the-other-f5d3b398edc4#.l50838ihv">Objective Comparison of Grunt vs Gulp</a></p>
+
+<hr>
+
+<h2>
+<a id="user-content-getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>Throughout this lesson we'll be using a specific file structure. Do the following to get your project set up:</p>
+
+<ol>
+<li>
+<p>Install gulp globally.</p>
+
+<div class="highlight highlight-source-shell"><pre>$ npm install --global gulp-cli</pre></div>
+</li>
+<li><p>Create a directory for your project.</p></li>
+<li>
+<p>Install gulp locally as a dev dependency:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ npm install --save-dev gulp</pre></div>
+</li>
+<li>
+<p>Create the following files within that directory.</p>
+
+<p><strong>./gulpfile.js</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> gulp <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp<span class="pl-pds">'</span></span>);
+
+<span class="pl-smi">gulp</span>.<span class="pl-en">task</span>(<span class="pl-s"><span class="pl-pds">'</span>default<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Ran default task.<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<p><strong>./src/index.html</strong></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">title</span>&gt;Colors&lt;/<span class="pl-ent">title</span>&gt;
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/main.css<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+    &lt;<span class="pl-ent">h1</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>red<span class="pl-pds">"</span></span>&gt;Hello, World!&lt;/<span class="pl-ent">h1</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/main.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><strong>./src/css/main.css</strong></p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-e">.red</span> {
+    <span class="pl-c1"><span class="pl-c1">color</span></span>: <span class="pl-c1">red</span>;
+}
+
+<span class="pl-e">.green</span> {
+    <span class="pl-c1"><span class="pl-c1">color</span></span>: <span class="pl-c1">green</span>;
+}
+
+<span class="pl-e">.blue</span> {
+    <span class="pl-c1"><span class="pl-c1">color</span></span>: <span class="pl-c1">blue</span>;
+}</pre></div>
+
+<p><strong>./src/js/main.js</strong></p>
+
+<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>() {
+    <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+    <span class="pl-k">var</span> h1Elements <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTagName</span>(<span class="pl-s"><span class="pl-pds">'</span>h1<span class="pl-pds">'</span></span>);
+    <span class="pl-k">var</span> h1Element <span class="pl-k">=</span> h1Elements[<span class="pl-c1">0</span>];
+    <span class="pl-k">var</span> classIndex <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+    <span class="pl-k">var</span> classNames <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>green<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>];
+
+    <span class="pl-k">function</span> <span class="pl-en">changeClass</span>() {
+        classIndex<span class="pl-k">++</span>;
+        <span class="pl-k">if</span> (classIndex <span class="pl-k">&gt;=</span> <span class="pl-smi">classNames</span>.<span class="pl-c1">length</span>) classIndex <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+        <span class="pl-smi">h1Element</span>.<span class="pl-c1">className</span> <span class="pl-k">=</span> classNames[classIndex];
+    }
+
+    <span class="pl-c1">setInterval</span>(changeClass, <span class="pl-c1">1000</span>);
+})();</pre></div>
+</li>
+<li>
+<p>Run the gulp default task from the directory.</p>
+
+<div class="highlight highlight-source-shell"><pre>gulp [TASK]...</pre></div>
+
+<p>If you don't specify a task to run then the <code>default</code> task will be run.</p>
+</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-gulp-tasks" class="anchor" href="#gulp-tasks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gulp Tasks</h2>
+
+<p><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md#gulptaskname--deps-fn">gulp.task</a></p>
+
+<p>Notice that there is a second argument that is optional that allows you to pass in an array of tasks to run before the callback is called.</p>
+
+<h2>
+<a id="user-content-javascript-streams" class="anchor" href="#javascript-streams" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JavaScript Streams</h2>
+
+<ul>
+<li>Streams are similar to arrays except that they can have an infinite length.</li>
+<li>Often in a stream some code is feeding into the stream while other code is reading from the stream.</li>
+<li>The first item in the stream is usually the first one out.</li>
+<li>The stream reader waits until data arrives.</li>
+<li>The stream write writes data whenever it chooses to.</li>
+<li>You may be familiar with pipes (from Unix) and how you can pipe (or stream) the output from one command into the input of another command.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-vinyl" class="anchor" href="#vinyl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vinyl</h2>
+
+<ul>
+<li>A simple metadata object that describes a file's properties (such as file size, location, content, etc.)</li>
+<li>Vinyl adapters expose methods for <code>.src(globs)</code>, <code>.dest(globs)</code>, and <code>.watch(globs)</code>.
+
+<ul>
+<li>The parameters for these functions can be either a string or an array of strings.</li>
+</ul>
+</li>
+<li>It's used for virtual files (saving time by not writing to disk).</li>
+</ul>
+
+<h2>
+<a id="user-content-globs" class="anchor" href="#globs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Globs</h2>
+
+<p>You can learn all about globs at <a href="http://mywiki.wooledge.org/glob">http://mywiki.wooledge.org/glob</a>.</p>
+
+<ul>
+<li>Globs are a file path matching pattern system.</li>
+<li>They originated with Unix.</li>
+</ul>
+
+<p>Here are some common matching strings that you can use:</p>
+
+<ul>
+<li>
+<code>*.js</code> - This will match any files ending in .js in the current directory.</li>
+<li>
+<code>dir/*.js</code> - This will match any files in the dir directory that end in a .js.</li>
+<li>
+<code>**/*.js</code> - This will recursively dive through all directories, matching all files that end in .js, but it will not include the base directory in its search.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-define-a-javascript-minify-task" class="anchor" href="#define-a-javascript-minify-task" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Define a JavaScript Minify Task</h2>
+
+<p>The objective here is to take all of the JavaScript files within our <code>./src/</code> directory and create minified versions of those files in the <code>./dist/</code> directory.</p>
+
+<h4>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h4>
+
+<ol>
+<li>What is minification?</li>
+<li>Why should we minify?</li>
+</ol>
+
+<h4>
+<a id="user-content-exercise" class="anchor" href="#exercise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>Use <a href="https://www.npmjs.com/package/gulp-uglify">gulp-uglify</a> to write a task to minify all of your JavaScript files.</li>
+<li>Install gulp-uglify: <code>npm install --save-dev gulp-uglify</code>.</li>
+<li>Save minified copies of the JavaScript files in the dist directory.</li>
+<li>Run your task using <code>gulp [TASK_NAME]</code>.</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-solution" class="anchor" href="#solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> gulp <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> uglify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp-uglify<span class="pl-pds">'</span></span>);
+
+<span class="pl-smi">gulp</span>.<span class="pl-en">task</span>(<span class="pl-s"><span class="pl-pds">'</span>compress-js<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> <span class="pl-smi">gulp</span>.<span class="pl-en">src</span>([<span class="pl-s"><span class="pl-pds">'</span>src/*.js<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>src/**/*.js<span class="pl-pds">'</span></span>])
+        .<span class="pl-en">pipe</span>(<span class="pl-en">uglify</span>())
+        .<span class="pl-en">pipe</span>(<span class="pl-smi">gulp</span>.<span class="pl-en">dest</span>(<span class="pl-s"><span class="pl-pds">'</span>dist<span class="pl-pds">'</span></span>));
+});</pre></div>
+
+<h4>
+<a id="user-content-exercise-1" class="anchor" href="#exercise-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<p>It is good practice to rename minified files so that they have <code>.min</code> in the name. For example, <code>main.js</code> would become <code>main.min.js</code> when minified.</p>
+
+<ol>
+<li>Use <a href="https://www.npmjs.com/package/gulp-rename">gulp-rename</a> to rename the file.</li>
+<li>Install gulp-rename: <code>npm install --save-dev gulp-rename</code>.</li>
+<li>Add the rename function into the JavaScript minification transform sequence, setting the suffix to <code>.min</code>.</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-solution-1" class="anchor" href="#solution-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> gulp <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> uglify <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp-uglify<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> rename <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>gulp-rename<span class="pl-pds">'</span></span>);
+
+<span class="pl-smi">gulp</span>.<span class="pl-en">task</span>(<span class="pl-s"><span class="pl-pds">'</span>compress-js<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> <span class="pl-smi">gulp</span>.<span class="pl-en">src</span>([<span class="pl-s"><span class="pl-pds">'</span>src/*.js<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>src/**/*.js<span class="pl-pds">'</span></span>])
+        .<span class="pl-en">pipe</span>(<span class="pl-en">uglify</span>())
+        .<span class="pl-en">pipe</span>(<span class="pl-en">rename</span>({ suffix<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>.min<span class="pl-pds">'</span></span> }))
+        .<span class="pl-en">pipe</span>(<span class="pl-smi">gulp</span>.<span class="pl-en">dest</span>(<span class="pl-s"><span class="pl-pds">'</span>dist<span class="pl-pds">'</span></span>));
+});</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-useful-gulp-plugins" class="anchor" href="#useful-gulp-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Useful Gulp Plugins</h2>
+
+<ul>
+<li>
+<a href="https://www.npmjs.com/package/gulp-autoprefixer">gulp-autoprefixer</a> - Will automatically add vendor specific prefixes to your CSS.</li>
+<li>
+<a href="https://www.npmjs.com/package/gulp-sass">gulp-sass</a> - Will convert your SASS and SCSS files into CSS files.</li>
+<li>
+<a href="https://www.npmjs.com/package/gulp-csso">gulp-csso</a> - Will minify CSS.</li>
+<li>
+<a href="https://www.npmjs.com/package/gulp-imagemin">gulp-imagemin</a> - Will automatically optimize your images for faster web page loading.</li>
+<li>
+<a href="https://www.npmjs.com/package/gulp-minify-html">gulp-minify-html</a> - Will take comments and unnecissary white space out ouf your HTML.</li>
+<li>
+<a href="https://www.npmjs.com/package/gulp-plumber">gulp-plumber</a> - Will prevent errors from crashing your streams.</li>
+<li>
+<a href="https://www.npmjs.com/package/gulp-uglify">gulp-uglify</a> - Will minify your JavaScript.</li>
+<li>
+<a href="https://www.npmjs.com/package/gulp-useref">gulp-useref</a> - Useful for building source maps. </li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-watching" class="anchor" href="#watching" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Watching</h2>
+
+<p><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md#gulpwatchglob--opts-tasks-or-gulpwatchglob--opts-cb">gulp.watch</a></p>
+
+<ul>
+<li>You can set up a watch that tells gulp to run specific tasks whenever files change.</li>
+<li>You'll probably want to add change plugins in case things haven't changed.
+
+<ul>
+<li>
+<a href="https://github.com/sindresorhus/gulp-changed">gulp-changed</a> - Only pass changed files down stream.</li>
+<li>
+<a href="https://github.com/contra/gulp-cached">gulp-cached</a> - In memory file cache.</li>
+<li>
+<a href="https://github.com/ahaurw01/gulp-remember">gulp-remember</a> - Adds already passed files back into the stream.</li>
+<li>
+<a href="https://github.com/tschaub/gulp-newer">gulp-newer</a> - Passes source files that are newer than destination files down stream.</li>
+</ul>
+</li>
+</ul>
+
+<script src="main.js"></script></body></html>

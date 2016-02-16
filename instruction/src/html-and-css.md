@@ -34,12 +34,15 @@
 
 ### Template
 
+(The below template is taken from https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document and then modified.)
+
 ```html
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
@@ -61,6 +64,8 @@
     <p>(c) 2010 The Example company</p>
 </footer>
 
+<script type="text/javascript" src="js/main.js"></script>
+
 </body>
 </html>
 ```
@@ -75,7 +80,15 @@ Will produce:
 
 w3schools can be a good resource. In the past it has been criticized for having out of date or inaccurate data, but overall its pretty good and it has some nice learning tools.
 
-[w3schools forms](http://www.w3schools.com/html/html_forms.asp)
+- [Forms Overview](http://www.w3schools.com/html/html_forms.asp)
+- [Form Elements](http://www.w3schools.com/html/html_form_elements.asp)
+- [Form Input Types](http://www.w3schools.com/html/html_form_input_types.asp)
+- [Form Input Attributes](http://www.w3schools.com/html/html_form_attributes.asp)
+
+Some things of note for forms on pages using AJAX:
+
+- You wont specify an action or a method on the form.
+- You'll use JavaScript to submit the form, using AJAX.
 
 <hr>
 
