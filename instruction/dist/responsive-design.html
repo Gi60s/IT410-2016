@@ -1,0 +1,231 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-responsive-design" class="anchor" href="#responsive-design" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Responsive Design</h1>
+
+<hr>
+
+<p><strong>Responsive design:</strong> The practice of creating a layout that is flexible enough to fit a variety of screen widths while retaining it's ease of use.</p>
+
+<p>Use:</p>
+
+<ul>
+<li>One URL</li>
+<li>One page of HTML content</li>
+<li>One set of JavaScript</li>
+<li>One set of CSS (using media queries)</li>
+</ul>
+
+<p>Get a website or web application that fits on:</p>
+
+<ul>
+<li>Desktops</li>
+<li>Laptops</li>
+<li>Tablets</li>
+<li>Smart phones</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-media-types" class="anchor" href="#media-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Media Types</h2>
+
+<p>You can specify what type of media a CSS is intended for:</p>
+
+<ul>
+<li>
+<strong>all</strong> - Any media type device. This is the default media type.</li>
+<li>
+<strong>print</strong> - Used for printers.</li>
+<li>
+<strong>screen</strong> - Used for computer screens.</li>
+</ul>
+
+<p><a href="https://css-tricks.com/snippets/css/all-stylesheet-media-types/">See a full list</a></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s"><span class="pl-pds">"</span>screen<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>main.css<span class="pl-pds">"</span></span> /&gt;
+&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s"><span class="pl-pds">"</span>print<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>print.css<span class="pl-pds">"</span></span> /&gt;</pre></div>
+
+<h2>
+<a id="user-content-media-queries" class="anchor" href="#media-queries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Media Queries</h2>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries">https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries</a></p>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- CSS media query on a link element --&gt;</span>
+&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">media</span>=<span class="pl-s"><span class="pl-pds">"</span>(max-width: 800px)<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>example.css<span class="pl-pds">"</span></span> /&gt;
+
+<span class="pl-c">&lt;!-- CSS media query within a stylesheet --&gt;</span>
+<span class="pl-s1">&lt;<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s1"><span class="pl-k">@media</span> (<span class="pl-c1">max-width</span>: <span class="pl-c1">600<span class="pl-k">px</span></span>) {</span>
+<span class="pl-s1">  <span class="pl-e">.facet_sidebar</span> {</span>
+<span class="pl-s1">    <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">none</span>;</span>
+<span class="pl-s1">  }</span>
+<span class="pl-s1">}</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">style</span>&gt;</span></pre></div>
+
+<h3>
+<a id="user-content-and" class="anchor" href="#and" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>And</h3>
+
+<p>Use the word <em>and</em>.</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-k">@media</span> (<span class="pl-c1">min-width</span>: <span class="pl-c1">700<span class="pl-k">px</span></span>) <span class="pl-k">and</span> (<span class="pl-c1">max-width</span>: <span class="pl-c1">1000<span class="pl-k">px</span></span>) { ... }</pre></div>
+
+<h3>
+<a id="user-content-or" class="anchor" href="#or" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Or</h3>
+
+<p>Use a comma.</p>
+
+<div class="highlight highlight-source-css"><pre>@media (min-width, 400px), print</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-css-grid-systems" class="anchor" href="#css-grid-systems" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSS Grid Systems</h2>
+
+<p>A set of CSS rules that help you to layout your website or web application.</p>
+
+<ul>
+<li>Create a row of elements.</li>
+<li>Elements in the row are set to take up a specific width at different screen widths.</li>
+</ul>
+
+<p><a href="http://getbootstrap.com/css/#grid">Twitter's Bootstrap Grid</a> has one of the more popular grid systems.</p>
+
+<p>Note that Bootstrap has much more styling than just a grid system:</p>
+
+<ul>
+<li><a href="http://getbootstrap.com/css/">CSS</a></li>
+<li><a href="http://getbootstrap.com/components/">Components</a></li>
+</ul>
+
+<h4>
+<a id="user-content-exercise" class="anchor" href="#exercise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<p>We're going to create a grid layout using the following code:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">lang</span>=<span class="pl-s"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">title</span>&gt;Title&lt;/<span class="pl-ent">title</span>&gt;
+    <span class="pl-c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+    &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css<span class="pl-pds">"</span></span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">style</span>&gt;</span>
+<span class="pl-s1">        <span class="pl-e">.row</span> &gt; <span class="pl-ent">*</span> {</span>
+<span class="pl-s1">            <span class="pl-c1"><span class="pl-c1">outline</span></span>: <span class="pl-c1">1<span class="pl-k">px</span></span> <span class="pl-c1">solid</span> <span class="pl-c1">#999</span>;</span>
+<span class="pl-s1">            <span class="pl-c1"><span class="pl-c1">font-size</span></span>: <span class="pl-c1">200<span class="pl-k">%</span></span>;</span>
+<span class="pl-s1">        }</span>
+<span class="pl-s1">    &lt;/<span class="pl-ent">style</span>&gt;</span>
+&lt;<span class="pl-ent">body</span>&gt;
+
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container-fluid<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-4<span class="pl-pds">"</span></span>&gt;
+                Left Column
+            &lt;/<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-4<span class="pl-pds">"</span></span>&gt;
+                Middle Column
+            &lt;/<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-4<span class="pl-pds">"</span></span>&gt;
+                Right Column
+            &lt;/<span class="pl-ent">div</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p>You can access this exercise at <a href="https://jsfiddle.net/j91w2edy/1/">https://jsfiddle.net/j91w2edy/1/</a></p>
+
+<ol>
+<li>When the screen is medium size:
+
+<ul>
+<li>The left column should take up 2 columns and be at the far left.</li>
+<li>The middle column should take up 8 columns and be in the middle.</li>
+<li>The right column should take up 2 columns and be at the far right.</li>
+</ul>
+</li>
+<li>When the screen is small size:
+
+<ul>
+<li>The left column should take up 3 columns and be at the far left.</li>
+<li>The middle column should take up 9 columns and be at the far right.</li>
+<li>The bottom column should take up 12 columns and be below the left and middle columns.</li>
+</ul>
+</li>
+<li>When the screen is extra small:
+
+<ul>
+<li>All columns should take up 12 columns.</li>
+<li>The middle column should be at the top, followed by the left column, and lastly the right column.</li>
+<li>
+<strong>Hint:</strong> You may need to reorder the rows in the HTML and look into the push and pull column classes for Bootstrap.</li>
+</ul>
+</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-solution" class="anchor" href="#solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>...
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container-fluid<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-8 col-md-push-2 col-sm-9 col-sm-push-3<span class="pl-pds">"</span></span>&gt;
+            Middle Column
+        &lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-2 col-md-pull-8 col-sm-3 col-sm-pull-9<span class="pl-pds">"</span></span>&gt;
+            Left Column
+        &lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-md-2<span class="pl-pds">"</span></span>&gt;
+            Right Column
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;
+...</pre></div>
+
+<hr>
+
+<h3>
+<a id="user-content-css-grid-flaws" class="anchor" href="#css-grid-flaws" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CSS Grid Flaws</h3>
+
+<ul>
+<li>It uses floats.</li>
+<li>Floats were not originally indented for complex layouts.</li>
+<li>In the previous solution we saw how we needed to do some weird things to make it layout properly:
+
+<ul>
+<li>We put middle first.</li>
+<li>We had to include weird margins (css push and pull classes).</li>
+<li>There were other problems that were not readily apparent.</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a id="user-content-flexbox" class="anchor" href="#flexbox" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Flexbox</h3>
+
+<ul>
+<li>Flexbox is a system that can replace grid layouts.</li>
+<li>It is not fully supported by all browsers yet, although it is very close.</li>
+<li>The specification is not yet finalized, but it is also very close.</li>
+</ul>
+
+<p>Two good sources for learning about flexbox:</p>
+
+<ul>
+<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">css-tricks</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes">MDN</a></li>
+</ul>
+
+<h4>
+<a id="user-content-question" class="anchor" href="#question" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Question</h4>
+
+<ol>
+<li>How would you go about creating the same flexible layout in the exercise using flexbox and media queries? (We don't need to solve this, just get a rough idea.)</li>
+</ol>
+
+<script src="main.js"></script></body></html>
