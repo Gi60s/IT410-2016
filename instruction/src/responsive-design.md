@@ -66,7 +66,7 @@ Use the word *and*.
 Use a comma.
 
 ```css
-@media (min-width, 400px), print
+@media (min-width: 400px), print
 ```
 
 <hr>
