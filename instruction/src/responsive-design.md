@@ -71,6 +71,16 @@ Use a comma.
 
 <hr>
 
+## Mobile Browsers
+
+At the early stages of mobile devices, no websites supported mobile display. Because of that mobile browser would automatically scale the website the best they could. This of course leads to problems when you want to make a website's width flexible. To overcome this, you can add this line to the head of your html document:
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
+
+<hr>
+
 ## CSS Grid Systems
 
 A set of CSS rules that help you to layout your website or web application.
