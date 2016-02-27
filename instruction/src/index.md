@@ -2,6 +2,8 @@
 
 ## Table of Contents
 
+ - [Angular Intro](/angular-intro.html)
+ - [Angular Services](/angular-services.html)
  - [Asynchronous JavaScript](/asynchronous-javascript.html)
  - [Command Line Arguments](/command-line-args.html)
  - [Gulp](/gulp.html)

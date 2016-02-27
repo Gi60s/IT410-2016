@@ -1,0 +1,24 @@
+<!doctype html>
+<html ng-app="app" ng-controller="AppController as ctrl">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+<form ng-submit="ctrl.checkGuess($event)">
+    <p>
+        <input type="number" ng-model="ctrl.guess"
+               ng-disabled="ctrl.done">
+    </p>
+</form>
+<p>You have {{ctrl.remaining}} guesses.</p>
+<p>{{ctrl.message}}</p>
+<p>
+    You have already guessed these numbers:
+        <span ng-repeat="g in ctrl.guesses track by $index">
+            {{g}} &nbsp;
+        </span>
+</p>
+
+</body>
+</html>

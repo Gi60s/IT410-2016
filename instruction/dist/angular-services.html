@@ -1,0 +1,328 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-angularjs-services" class="anchor" href="#angularjs-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AngularJS Services</h1>
+
+<hr>
+
+<ul>
+<li>A service is view independent business logic.</li>
+<li>A controller should contain just the logic needed for communication between the model and the view.</li>
+<li>Services help to keep your code organized.</li>
+<li>Services are reusable throughout your code.</li>
+<li>A service is a black box with inputs and outputs (interfaces). The code inside can change whenever as long as the interfaces stay the same.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-controller-logic-vs-service-logic" class="anchor" href="#controller-logic-vs-service-logic" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Controller Logic vs Service Logic</h2>
+
+<p>In the last class we developed a guess the number game, but we mixed controller logic with business logic. Here we'll separate the two.</p>
+
+<p>This is our controller from before.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>AppController<span class="pl-pds">'</span></span>, [<span class="pl-k">function</span>() {
+    <span class="pl-k">var</span> answer <span class="pl-k">=</span> <span class="pl-c1">Math</span>.<span class="pl-c1">round</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">100</span>);
+
+    <span class="pl-v">this</span>.<span class="pl-smi">done</span> <span class="pl-k">=</span> <span class="pl-c1">false</span>;
+
+    <span class="pl-v">this</span>.<span class="pl-smi">guess</span> <span class="pl-k">=</span> <span class="pl-c1">50</span>;
+
+    <span class="pl-v">this</span>.<span class="pl-smi">guesses</span> <span class="pl-k">=</span> [];
+
+    <span class="pl-v">this</span>.<span class="pl-smi">remaining</span> <span class="pl-k">=</span> <span class="pl-c1">7</span>;
+
+    <span class="pl-v">this</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>;
+
+    <span class="pl-v">this</span>.<span class="pl-smi">checkGuess</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">e</span>) {
+        <span class="pl-smi">e</span>.<span class="pl-en">preventDefault</span>();
+
+        <span class="pl-k">if</span> (<span class="pl-v">this</span>.<span class="pl-smi">done</span>) <span class="pl-k">return</span>;
+
+        <span class="pl-v">this</span>.<span class="pl-smi">remaining</span><span class="pl-k">--</span>;
+        <span class="pl-k">if</span> (<span class="pl-v">this</span>.<span class="pl-smi">guess</span> <span class="pl-k">===</span> answer) {
+            <span class="pl-v">this</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>You are so right!<span class="pl-pds">'</span></span>;
+            <span class="pl-v">this</span>.<span class="pl-smi">done</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+        } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-v">this</span>.<span class="pl-smi">guess</span> <span class="pl-k">&lt;</span> answer) {
+            <span class="pl-v">this</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Guess higher.<span class="pl-pds">'</span></span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-v">this</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Guess lower.<span class="pl-pds">'</span></span>;
+        }
+
+        <span class="pl-k">if</span> (<span class="pl-v">this</span>.<span class="pl-smi">remaining</span> <span class="pl-k">===</span> <span class="pl-c1">0</span>) <span class="pl-v">this</span>.<span class="pl-smi">done</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+
+        <span class="pl-v">this</span>.<span class="pl-smi">guesses</span>.<span class="pl-c1">push</span>(<span class="pl-v">this</span>.<span class="pl-smi">guess</span>);
+    };
+
+}]);</pre></div>
+
+<h4>
+<a id="user-content-questions" class="anchor" href="#questions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Questions</h4>
+
+<ol>
+<li>Which components of this controller are controller logic?</li>
+<li>Which components of the controller are service logic?</li>
+<li>Are there any components that are both controller and service logic?</li>
+</ol>
+
+<h4>
+<a id="user-content-exercise" class="anchor" href="#exercise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<p>We're going to separate the service logic from the controller logic for the above example.</p>
+
+<ol>
+<li>Create a service called "guessGame".</li>
+<li>Move answer, remaining, guesses made, and make a guess to the service.</li>
+<li>Inject the service into the controller and add controller logic to use service logic.</li>
+<li>Add a function to reset the game to the service. </li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-guess-the-number-service" class="anchor" href="#guess-the-number-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Guess the Number Service</h2>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
+&lt;<span class="pl-ent">html</span> <span class="pl-e">ng-app</span>=<span class="pl-s"><span class="pl-pds">"</span>app<span class="pl-pds">"</span></span> <span class="pl-e">ng-controller</span>=<span class="pl-s"><span class="pl-pds">"</span>AppController as ctrl<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>app.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+    &lt;<span class="pl-ent">form</span> <span class="pl-e">ng-submit</span>=<span class="pl-s"><span class="pl-pds">"</span>ctrl.checkGuess($event)<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">p</span>&gt;
+            &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>number<span class="pl-pds">"</span></span> <span class="pl-e">ng-model</span>=<span class="pl-s"><span class="pl-pds">"</span>ctrl.guess<span class="pl-pds">"</span></span>
+                <span class="pl-e">ng-disabled</span>=<span class="pl-s"><span class="pl-pds">"</span>ctrl.done()<span class="pl-pds">"</span></span>&gt;
+        &lt;/<span class="pl-ent">p</span>&gt;
+    &lt;/<span class="pl-ent">form</span>&gt;
+    &lt;<span class="pl-ent">p</span>&gt;You have {{ctrl.remaining()}} guesses.&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span>&gt;{{ctrl.message}}&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">p</span>&gt;
+        You have already guessed these numbers:
+        &lt;<span class="pl-ent">span</span> <span class="pl-e">ng-repeat</span>=<span class="pl-s"><span class="pl-pds">"</span>g in ctrl.guesses() track by $index<span class="pl-pds">"</span></span>&gt;
+            {{g}} <span class="pl-c1">&amp;nbsp;</span>
+        &lt;/<span class="pl-ent">span</span>&gt;
+    &lt;/<span class="pl-ent">p</span>&gt;
+
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>() {
+    <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+    <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, []);
+
+    <span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>AppController<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>guessGame<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">game</span>) {
+
+        <span class="pl-v">this</span>.<span class="pl-smi">done</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+            <span class="pl-k">return</span> <span class="pl-smi">game</span>.<span class="pl-en">remaining</span>() <span class="pl-k">===</span> <span class="pl-c1">0</span>;
+        };
+
+        <span class="pl-v">this</span>.<span class="pl-smi">guess</span> <span class="pl-k">=</span> <span class="pl-c1">50</span>;
+
+        <span class="pl-v">this</span>.<span class="pl-smi">guesses</span> <span class="pl-k">=</span> <span class="pl-smi">game</span>.<span class="pl-smi">guesses</span>;
+
+        <span class="pl-v">this</span>.<span class="pl-smi">remaining</span> <span class="pl-k">=</span> <span class="pl-smi">game</span>.<span class="pl-smi">remaining</span>;
+
+        <span class="pl-v">this</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>;
+
+        <span class="pl-v">this</span>.<span class="pl-smi">checkGuess</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">e</span>) {
+            <span class="pl-smi">e</span>.<span class="pl-en">preventDefault</span>();
+            <span class="pl-v">this</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Guess was <span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-smi">game</span>.<span class="pl-en">guess</span>(<span class="pl-v">this</span>.<span class="pl-smi">guess</span>);
+        };
+
+    }]);
+
+    <span class="pl-smi">app</span>.<span class="pl-en">service</span>(<span class="pl-s"><span class="pl-pds">'</span>guessGame<span class="pl-pds">'</span></span>, [<span class="pl-k">function</span>() {
+        <span class="pl-k">var</span> answer;
+        <span class="pl-k">var</span> guesses <span class="pl-k">=</span> [];
+        <span class="pl-k">var</span> remaining;
+
+        <span class="pl-v">this</span>.<span class="pl-smi">guess</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">number</span>) {
+            <span class="pl-k">var</span> value;
+
+            <span class="pl-k">if</span> (remaining <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>) {
+                <span class="pl-smi">guesses</span>.<span class="pl-c1">push</span>(number);
+                remaining<span class="pl-k">--</span>;
+
+                <span class="pl-k">if</span> (number <span class="pl-k">===</span> answer) {
+                    remaining <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+                    value <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>correct<span class="pl-pds">'</span></span>;
+                } <span class="pl-k">else</span> <span class="pl-k">if</span> (number <span class="pl-k">&lt;</span> answer) {
+                    value <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>too low<span class="pl-pds">'</span></span>;
+                } <span class="pl-k">else</span> <span class="pl-k">if</span> (number <span class="pl-k">&gt;</span> answer) {
+                    value <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>too high<span class="pl-pds">'</span></span>;
+                }
+
+                <span class="pl-k">return</span> value;
+            }
+        };
+
+        <span class="pl-v">this</span>.<span class="pl-smi">guesses</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+            <span class="pl-k">return</span> <span class="pl-smi">guesses</span>.<span class="pl-c1">slice</span>(<span class="pl-c1">0</span>)
+        };
+
+        <span class="pl-v">this</span>.<span class="pl-smi">remaining</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+            <span class="pl-k">return</span> remaining;
+        };
+
+        <span class="pl-v">this</span>.<span class="pl-smi">reset</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+            answer <span class="pl-k">=</span> <span class="pl-c1">Math</span>.<span class="pl-c1">round</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">100</span>);
+            remaining <span class="pl-k">=</span> <span class="pl-c1">7</span>;
+        };
+
+        <span class="pl-c">// start the game</span>
+        <span class="pl-v">this</span>.<span class="pl-c1">reset</span>();
+    }]);
+})();</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-service-vs-factory" class="anchor" href="#service-vs-factory" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Service vs Factory</h2>
+
+<p>A service</p>
+
+<ul>
+<li>is instantiated the first time that you inject it into another service type.</li>
+<li>is a singleton (there is only ever one).</li>
+<li>is called using as a constructor function (hence the use of <code>this</code>).</li>
+<li>is probably best having no state.</li>
+<li>is produced behind the scenes using a factory (syntactic sugar).</li>
+</ul>
+
+<p>A factory</p>
+
+<ul>
+<li>is instantiated the first time that you inject it into another service type.</li>
+<li>requires you to return something.</li>
+<li>is more versatile than a service.</li>
+</ul>
+
+<p>With all that said, it probably wasn't the best idea to create the guess game as a service. It should instead be a factory.</p>
+
+<h4>
+<a id="user-content-exercise-1" class="anchor" href="#exercise-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>Recreate the guessGame service as a factory.</li>
+<li>Have the factory return a function that creates an instance of the game.</li>
+<li>Allow the factory to take a parameter that specifies the maximum possible value for guessing.</li>
+</ol>
+
+<hr>
+
+<h4>
+<a id="user-content-solution" class="anchor" href="#solution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Solution</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>AppController<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>guessGame<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">guessGame</span>) {
+    <span class="pl-k">var</span> game <span class="pl-k">=</span> <span class="pl-en">guessGame</span>();
+
+    <span class="pl-c">// ... the rest of the code is unchanged</span>
+
+}]);
+
+<span class="pl-smi">app</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>guessGame<span class="pl-pds">'</span></span>, [<span class="pl-k">function</span>() {
+    <span class="pl-k">return</span> <span class="pl-k">function</span>(<span class="pl-smi">max</span>) {
+        <span class="pl-k">var</span> answer;
+        <span class="pl-k">var</span> factory <span class="pl-k">=</span> {};
+        <span class="pl-k">var</span> guesses <span class="pl-k">=</span> [];
+        <span class="pl-k">var</span> remaining;
+
+        <span class="pl-k">if</span> (<span class="pl-smi">arguments</span>.<span class="pl-c1">length</span> <span class="pl-k">===</span> <span class="pl-c1">0</span>) max <span class="pl-k">=</span> <span class="pl-c1">100</span>;
+
+        <span class="pl-c1">factory</span>.<span class="pl-en">guess</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">number</span>) {
+            <span class="pl-k">var</span> value;
+
+            <span class="pl-k">if</span> (remaining <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>) {
+                <span class="pl-smi">guesses</span>.<span class="pl-c1">push</span>(number);
+                remaining<span class="pl-k">--</span>;
+
+                <span class="pl-k">if</span> (number <span class="pl-k">===</span> answer) {
+                    remaining <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+                    value <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>correct<span class="pl-pds">'</span></span>;
+                } <span class="pl-k">else</span> <span class="pl-k">if</span> (number <span class="pl-k">&lt;</span> answer) {
+                    value <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>too low<span class="pl-pds">'</span></span>;
+                } <span class="pl-k">else</span> <span class="pl-k">if</span> (number <span class="pl-k">&gt;</span> answer) {
+                    value <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>too high<span class="pl-pds">'</span></span>;
+                }
+
+                <span class="pl-k">return</span> value;
+            }
+        };
+
+        <span class="pl-c1">factory</span>.<span class="pl-en">guesses</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+            <span class="pl-k">return</span> <span class="pl-smi">guesses</span>.<span class="pl-c1">slice</span>(<span class="pl-c1">0</span>)
+        };
+
+        <span class="pl-c1">factory</span>.<span class="pl-en">remaining</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+            <span class="pl-k">return</span> remaining;
+        };
+
+        <span class="pl-c1">factory</span>.<span class="pl-en">reset</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+            answer <span class="pl-k">=</span> <span class="pl-c1">Math</span>.<span class="pl-c1">round</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> max);
+            remaining <span class="pl-k">=</span> <span class="pl-c1">7</span>;
+        };
+
+        <span class="pl-c">// start the game</span>
+        <span class="pl-smi">factory</span>.<span class="pl-c1">reset</span>();
+
+        <span class="pl-k">return</span> factory;
+    }
+}]);</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-terminology-providers-and-services" class="anchor" href="#terminology-providers-and-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Terminology: Providers and Services</h2>
+
+<ul>
+<li>A provider can be run during the configuration phase.</li>
+<li>A service is run during the run phase, including:
+
+<ul>
+<li>Services</li>
+<li>Factories</li>
+<li>Values</li>
+<li>Constants</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-http-service" class="anchor" href="#http-service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>$http Service</h2>
+
+<p><a href="https://docs.angularjs.org/api/ng/service/%24http">https://docs.angularjs.org/api/ng/service/$http</a></p>
+
+<ul>
+<li>This service can be injected into any module component.</li>
+<li>It makes AJAX calls for you.</li>
+<li>It returns a <a href="/promises.html">promise</a>. You should use <code>.then(successCallback, errorCallback)</code> for the results of the promise.</li>
+<li>It has shortcut methods for <a href="https://docs.angularjs.org/api/ng/service/%24http#get">$http.get</a>, <a href="https://docs.angularjs.org/api/ng/service/%24http#post">$http.post</a>, <a href="https://docs.angularjs.org/api/ng/service/%24http#put">$http.put</a>, <a href="https://docs.angularjs.org/api/ng/service/%24http#delete">$http.delete</a>, and more.</li>
+<li>It has defaults (headers and configurations) that can be configured through the provider.</li>
+<li>It has security built it, but needs your help to make things very secure.</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="user-content-exercise-2" class="anchor" href="#exercise-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<p>A few weeks ago we had a homework assignment to make web services that access our user management system. Now we're going to create an AngularJS service service to access those REST services.</p>
+
+<ol>
+<li>Create a service. You might want to name it "ums" or "userManagementSystem".</li>
+<li>The service should return these functions:
+
+<ul>
+<li>createUser</li>
+<li>updateUser</li>
+<li>authenticate</li>
+</ul>
+</li>
+<li>Set up a controller that will use the service to access your web resources.</li>
+</ol>
+
+<script src="main.js"></script></body></html>
