@@ -3,38 +3,83 @@
 
     var app = angular.module('app', []);
 
-    app.controller('AppController', [function() {
-        var answer = Math.round(Math.random() * 100);
+    app.controller('AppController', ['GuessGame', function(guessGame) {
+        var game = guessGame(100);
 
-        this.done = false;
+        Object.defineProperty(this, 'done', {
+            enumerable: true,
+            configurable: false,
+            get: function() {
+                return game.done();
+            }
+        });
 
         this.guess = 50;
 
-        this.guesses = [];
+        this.guesses = game.guesses;
 
-        this.remaining = 7;
+        this.remaining = game.remaining;
 
         this.message = '';
 
         this.checkGuess = function(e) {
+            var result;
             e.preventDefault();
 
-            if (this.done) return;
-
-            this.remaining--;
-            if (this.guess === answer) {
+            result = game.makeGuess(this.guess);
+            if (result === true) {
                 this.message = 'You are so right!';
-                this.done = true;
-            } else if (this.guess < answer) {
-                this.message = 'Guess higher.';
             } else {
-                this.message = 'Guess lower.';
+                this.message = 'You need to ' + result;
             }
-
-            if (this.remaining === 0) this.done = true;
-
-            this.guesses.push(this.guess);
         };
 
+    }]);
+
+    app.factory('GuessGame', [function() {
+        return function(max) {
+            var answer;
+            var factory = {};
+            var guesses;
+            var remaining;
+
+            factory.done = function () {
+                return remaining === 0;
+            };
+
+            factory.guesses = function () {
+                return guesses.slice(0);
+            };
+
+            factory.remaining = function () {
+                return remaining;
+            };
+
+            factory.makeGuess = function (number) {
+                if (factory.done()) return 'stop trying';
+
+                remaining--;
+                guesses.push(number);
+
+                if (number === answer) {
+                    remaining = 0;
+                    return true;
+                } else if (number < answer) {
+                    return 'try higher';
+                } else {
+                    return 'try lower';
+                }
+            };
+
+            factory.reset = function () {
+                answer = Math.round(Math.random() * max);
+                guesses = [];
+                remaining = 7;
+            };
+
+            factory.reset();
+
+            return factory;
+        }
     }]);
 })();

@@ -11,11 +11,11 @@
                ng-disabled="ctrl.done">
     </p>
 </form>
-<p>You have {{ctrl.remaining}} guesses.</p>
+<p>You have {{ctrl.remaining()}} guesses.</p>
 <p>{{ctrl.message}}</p>
 <p>
     You have already guessed these numbers:
-        <span ng-repeat="g in ctrl.guesses track by $index">
+        <span ng-repeat="g in ctrl.guesses() track by $index">
             {{g}} &nbsp;
         </span>
 </p>
