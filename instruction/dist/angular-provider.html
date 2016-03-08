@@ -1,0 +1,68 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-angularjs-providers" class="anchor" href="#angularjs-providers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AngularJS Providers</h1>
+
+<hr>
+
+<h2>
+<a id="user-content-about-providers" class="anchor" href="#about-providers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About Providers</h2>
+
+<blockquote>
+<p>[The] Provider recipe is the core recipe type and all the other recipe types [constant, value, factory, and service] are just syntactic sugar on top of it. It is the most verbose recipe with the most abilities, but for most services it's overkill.</p>
+
+<p><a href="https://docs.angularjs.org/guide/providers">https://docs.angularjs.org/guide/providers</a></p>
+</blockquote>
+
+<ul>
+<li>Providers run in two parts, during the configuration phase and the run phase.</li>
+<li>Providers accept application wide configuration.</li>
+<li>Providers must define a <code>$get</code> function.</li>
+</ul>
+
+<h3>
+<a id="user-content-example-code" class="anchor" href="#example-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example Code</h3>
+
+<p><strong>Define a Provider</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, []);
+
+<span class="pl-smi">app</span>.<span class="pl-en">provider</span>(<span class="pl-s"><span class="pl-pds">'</span>defaultValue<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+    <span class="pl-k">var</span> defaultValue;
+
+    <span class="pl-c">// 'this' and its properties are only accessible during the configuration phase </span>
+    <span class="pl-v">this</span>.<span class="pl-c1">defaultValue</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
+        defaultValue <span class="pl-k">=</span> value;
+    };
+
+    <span class="pl-c">// whatever $get returns will be it's factory during the run phase</span>
+    <span class="pl-v">this</span>.<span class="pl-smi">$get</span> <span class="pl-k">=</span> [<span class="pl-k">function</span>() {
+
+        <span class="pl-k">return</span> <span class="pl-k">function</span>(<span class="pl-smi">value</span>) {
+            <span class="pl-k">return</span> <span class="pl-smi">arguments</span>.<span class="pl-c1">length</span> <span class="pl-k">&gt;</span> <span class="pl-c1">0</span> <span class="pl-k">?</span> value <span class="pl-k">:</span> defaultValue; 
+        };
+
+    });
+
+});</pre></div>
+
+<p><strong>Configure the Provider</strong></p>
+
+<p>Notice that the provider was named "defaultValue" but during the configuration phase the word "Provider" is added to the end of the name, making it "defaultValueProvider". This happens for all providers.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">config</span>([<span class="pl-s"><span class="pl-pds">'</span>defaultValueProvider<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">defaultValueProvider</span>) {
+    <span class="pl-smi">defaultValueProvider</span>.<span class="pl-c1">defaultValue</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello, World!<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<p><strong>Use the Provider During Run Time</strong></p>
+
+<p>The provider returns what was in $get as a factory. You can use that factory in controllers, services, other factories, etc. so long as it is during the run phase.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">run</span>([<span class="pl-s"><span class="pl-pds">'</span>defaultValue<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">defaultValue</span>) {
+    <span class="pl-k">var</span> value1 <span class="pl-k">=</span> <span class="pl-en">defaultValue</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello, Bob!<span class="pl-pds">'</span></span>);
+    <span class="pl-k">var</span> value2 <span class="pl-k">=</span> <span class="pl-en">defaultValue</span>();
+
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(value1);    <span class="pl-c">// "Hello, Bob!"</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(value2);    <span class="pl-c">// "Hello, World!"</span>
+});</pre></div>
+
+<script src="main.js"></script></body></html>
