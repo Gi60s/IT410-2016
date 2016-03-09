@@ -1,0 +1,88 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-angularjs-unit-testing" class="anchor" href="#angularjs-unit-testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AngularJS Unit Testing</h1>
+
+<hr>
+
+<h2>
+<a id="user-content-karma" class="anchor" href="#karma" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Karma</h2>
+
+<p><a href="http://karma-runner.github.io/">Karma</a>, a great front-end testing tool, was built to test Angular applications.</p>
+
+<blockquote>
+<p>On the AngularJS team, we rely on testing and we always seek better tools to make our life easier. That's why we created Karma - a test runner that fits all our needs.</p>
+
+<p><a href="http://karma-runner.github.io/">http://karma-runner.github.io/</a></p>
+</blockquote>
+
+<ul>
+<li>Karma is not an assertion library</li>
+<li>Karma is a test runner.</li>
+<li>Karma can use plugins.</li>
+<li>Karma tests your code in whatever browser's you tell it to.</li>
+</ul>
+
+<h2>
+<a id="user-content-jasmine" class="anchor" href="#jasmine" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Jasmine</h2>
+
+<ul>
+<li>A testing tool that is similar to mocha and chai combined</li>
+<li>It is most frequently used with Karma to test angular.</li>
+</ul>
+
+<p><a href="http://jasmine.github.io/">Jasmine Documentation</a></p>
+
+<h2>
+<a id="user-content-angularjs-mock" class="anchor" href="#angularjs-mock" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AngularJS Mock</h2>
+
+<ul>
+<li>An angular module with mocking tools.</li>
+<li>Allows you to simulate an otherwise actual environment.</li>
+<li>Has synchronous services that act like actual counterparts.</li>
+</ul>
+
+<p><a href="https://docs.angularjs.org/api/ngMock">ngMock Documentation</a></p>
+
+<hr>
+
+<h2>
+<a id="user-content-setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h2>
+
+<ol>
+<li>Install karma globally: <code>npm install -g karma-cli</code>
+</li>
+<li>Install karma locally: <code>npm install --save-dev karma</code>
+</li>
+<li>Install karma plugins: <code>npm install --save-dev karma-jasmine karma-chrome-launcher</code>
+</li>
+<li>Set up a karma configuration file: <code>karma init</code>
+
+<ul>
+<li>For the files to use:
+
+<ul>
+<li>Make sure you include the path to angular.js first.</li>
+<li>Make sure you include angular-mock.js in your source directory.</li>
+<li>Add paths for source JavaScript files.</li>
+<li>Add paths for test JavaScript files.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Start karma: <code>karma start karma.conf.js</code>
+</li>
+</ol>
+
+<p>If you're browser didn't open, then open it to the address listed in your command line.</p>
+
+<hr>
+
+<h3>
+<a id="user-content-writing-tests" class="anchor" href="#writing-tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Writing Tests</h3>
+
+<p>AngularJS has documentation on how to write unit tests for Controllers, Filters, and Directives. You can use a search engine to find how to do the others.</p>
+
+<p><a href="https://docs.angularjs.org/guide/unit-testing">AngularJS Unit Test Documentation</a>
+<a href="http://www.sitepoint.com/unit-testing-angularjs-services-controllers-providers/">Sitepoint Examples</a></p>
+
+<script src="main.js"></script></body></html>
