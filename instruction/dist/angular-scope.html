@@ -1,0 +1,267 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-angularjs-scope" class="anchor" href="#angularjs-scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AngularJS Scope</h1>
+
+<hr>
+
+<ul>
+<li>Angular applies scope to the DOM (similar to JavaScript scope).</li>
+<li>Scope defines a context.</li>
+<li>Expressions in the HTML are evaluated against the scope they reside within.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-relationship-between-scope-and-controller-as" class="anchor" href="#relationship-between-scope-and-controller-as" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Relationship Between $scope and Controller As</h2>
+
+<h3>
+<a id="user-content-indexhtml" class="anchor" href="#indexhtml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>index.html</h3>
+
+<p><strong>With Controller As</strong></p>
+
+<ul>
+<li>We need to specify a variable name that is applied to the instance of the controller.</li>
+<li>To evaluate controller properties we need to use that variable name.</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>...
+
+&lt;<span class="pl-ent">body</span> <span class="pl-e">ng-app</span>=<span class="pl-s"><span class="pl-pds">"</span>app<span class="pl-pds">"</span></span> <span class="pl-e">ng-controller</span>=<span class="pl-s"><span class="pl-pds">"</span>AppController as ctrl<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">p</span>&gt;{{ctrl.message}}&lt;/<span class="pl-ent">p</span>&gt;
+&lt;/<span class="pl-ent">body</span>&gt;
+
+...</pre></div>
+
+<p><strong>With $scope</strong></p>
+
+<ul>
+<li>We don't set a variable name for the instance of the controller.</li>
+<li>Properties are evaluated against the current scope (or context).</li>
+</ul>
+
+<div class="highlight highlight-text-html-basic"><pre>...
+
+&lt;<span class="pl-ent">body</span> <span class="pl-e">ng-app</span>=<span class="pl-s"><span class="pl-pds">"</span>app<span class="pl-pds">"</span></span> <span class="pl-e">ng-controller</span>=<span class="pl-s"><span class="pl-pds">"</span>AppController<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">p</span>&gt;{{message}}&lt;/<span class="pl-ent">p</span>&gt;
+&lt;/<span class="pl-ent">body</span>&gt;
+
+...</pre></div>
+
+<h3>
+<a id="user-content-mainjs" class="anchor" href="#mainjs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>main.js</h3>
+
+<p><strong>With Controller As</strong></p>
+
+<ul>
+<li>We set properties on the <code>this</code> object.</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>() {
+    <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+    <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, []);
+
+    <span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>AppController<span class="pl-pds">'</span></span>, [<span class="pl-k">function</span>() {
+
+        <span class="pl-v">this</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>You are awesome!<span class="pl-pds">'</span></span>;
+
+    }]);
+
+})();</pre></div>
+
+<p><strong>With $scope</strong></p>
+
+<ul>
+<li>We inject the current $scope (or context).</li>
+<li>We set properties on the $scope object.</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>() {
+    <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+    <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, []);
+
+    <span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>AppController<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">$scope</span>) {
+
+        <span class="pl-smi">$scope</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>You are awesome!<span class="pl-pds">'</span></span>;
+
+    }]);
+
+})();</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-how-controller-as-works" class="anchor" href="#how-controller-as-works" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How Controller As Works</h2>
+
+<p>There is no real magic to Controller As.</p>
+
+<ol>
+<li>The directive <code>ng-controller</code> reads its property value.</li>
+<li>If it has the <code>as</code> keyword after the controller followed by a name, it adds that name to the $scope.</li>
+</ol>
+
+<p>This is what it would look like if you did it through the Controller definition:</p>
+
+<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>() {
+    <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+    <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, []);
+
+    <span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>AppController<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>$scope<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">$scope</span>) {
+
+        <span class="pl-v">this</span>.<span class="pl-smi">message</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>You are awesome!<span class="pl-pds">'</span></span>;
+
+        <span class="pl-smi">$scope</span>.<span class="pl-smi">ctrl</span> <span class="pl-k">=</span> <span class="pl-v">this</span>;
+
+    }]);
+
+})();</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-pros-and-cons--scope-vs-controller-as" class="anchor" href="#pros-and-cons--scope-vs-controller-as" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pros and Cons / $scope vs Controller As</h2>
+
+<h3>
+<a id="user-content-scope" class="anchor" href="#scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>$scope</h3>
+
+<p><strong>Pros</strong></p>
+
+<ul>
+<li>Can observe model mutations (using $watch).</li>
+<li>Can propagate model changes (using $apply).</li>
+<li>Can digest model changes (using $digest).</li>
+<li>Can both send (using $broadcast or $emit) and receive events.</li>
+<li>Can inherit prototypically from parent scopes.</li>
+</ul>
+
+<p><strong>Cons</strong></p>
+
+<ul>
+<li>Can be more complicated.</li>
+<li>Can inherit prototypically from parent scopes.</li>
+</ul>
+
+<h3>
+<a id="user-content-controller-as" class="anchor" href="#controller-as" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Controller As</h3>
+
+<p><strong>Pros</strong></p>
+
+<ul>
+<li>Less complicated.</li>
+<li>No inheritance.</li>
+</ul>
+
+<p><strong>Cons</strong></p>
+
+<ul>
+<li>No custom observers or appliers.</li>
+<li>No event propagation or reception.</li>
+<li>No inheritance.</li>
+</ul>
+
+<h4>
+<a id="user-content-question" class="anchor" href="#question" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Question</h4>
+
+<p>How can prototypical inheritance be both a pro and a con?</p>
+
+<hr>
+
+<h4>
+<a id="user-content-question-1" class="anchor" href="#question-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Question</h4>
+
+<p>How can prototypical inheritance be both a pro and a con?</p>
+
+<h4>
+<a id="user-content-answer" class="anchor" href="#answer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Answer</h4>
+
+<p>In the following example:</p>
+
+<ul>
+<li>We don't worry about creating a controller.</li>
+<li>The <code>ng-app</code> directive binds the <code>$rootScope</code> to the <code>&lt;body&gt;</code> tag.</li>
+<li>The first <code>input</code> property is being defined on the <code>$rootScope</code>.</li>
+<li>The <code>ng-if</code> directive creates a prototypically inherited child scope.</li>
+<li>The second input is not part of the DOM until the first input has content.</li>
+</ul>
+
+<p><a href="./angular-scope/scope-inheritance.html">Try the Demo</a></p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+  &lt;<span class="pl-ent">head</span>&gt;
+    &lt;<span class="pl-ent">title</span>&gt;Scope Inheritance&lt;/<span class="pl-ent">title</span>&gt;
+  &lt;/<span class="pl-ent">head</span>&gt;
+  &lt;<span class="pl-ent">body</span> <span class="pl-e">ng-app</span>&gt;
+    &lt;<span class="pl-ent">p</span>&gt;&lt;<span class="pl-ent">input</span> <span class="pl-e">ng-model</span>=<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">p</span>&gt;&lt;<span class="pl-ent">input</span> <span class="pl-e">ng-model</span>=<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">p</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+  &lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<ol>
+<li>Type into the first input and watch both update.</li>
+<li>Type into the second input and only the second update.</li>
+<li>Type again into the first input and the first updates.</li>
+</ol>
+
+<p>This occurs because of prototypical inheritance.</p>
+
+<p><strong>Read</strong> - If you try to read a property on an object and the property doesn't exist then it will look to see if the parent that the object inherits from has that property and will continue to look upward on the prototype chain until it is either exhausted or found.</p>
+
+<p><strong>Write</strong> - When you write a property to an object it is writing the property directly onto the object. The object still may have a property with the same name that it inherits from, but when you read the property now it sees the one that you just wrote and it doesn't look to the prototype chain to resolve the property.</p>
+
+<hr>
+
+<h2>
+<a id="user-content-scope-events" class="anchor" href="#scope-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>$scope events</h2>
+
+<p><a href="https://docs.angularjs.org/api/ng/type/%24rootScope.Scope">$scope API</a></p>
+
+<ul>
+<li>
+<strong>$scope.$broadcast(name [, args]...)</strong> - Dispatches an event downward to all child scopes.</li>
+<li>
+<strong>$scope.$emit(name [, args]...)</strong> - Dispatches an event upward to all parent scopes.</li>
+<li>
+<strong>$scope.on(name, listener)</strong> - Listens for an event with the name specified and calls the callback listener function with the event and arguments as parameters.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-scopeapply" class="anchor" href="#scopeapply" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>$scope.$apply()</h2>
+
+<p><a href="https://docs.angularjs.org/api/ng/type/%24rootScope.Scope">$scope API</a></p>
+
+<ul>
+<li>When you modify properties on the $scope, the $scope is aware of those modifications.</li>
+<li>If you modify a value out of $scope that affects what $scope's values should be then you'll need to use $scope.$apply().</li>
+<li>This will start at the $rootScope and run $digest cycles for all child scopes.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-scopewatch" class="anchor" href="#scopewatch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>$scope.$watch</h2>
+
+<p><a href="https://docs.angularjs.org/api/ng/type/%24rootScope.Scope">$scope API</a></p>
+
+<p><strong>$scope.$watch(expression, listener [, objectEquality])</strong></p>
+
+<ul>
+<li>Every $digest the $watch expression is evaluated.</li>
+<li>The expression can be:
+
+<ul>
+<li>A string representing a property name on the $scope.</li>
+<li>A function that returns a value.</li>
+</ul>
+</li>
+<li>The expression should be idempotent (same input produces same output).</li>
+<li>If the evaluated expression has changed value then the listener function is called with two parameters: previousValue and newValue.</li>
+<li>If objectEquality is set to true then a deep equal test is made. This is more costly than a regular equal.</li>
+</ul>
+
+<script src="main.js"></script></body></html>
