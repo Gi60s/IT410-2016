@@ -2,9 +2,10 @@
 
 ## Table of Contents
 
- - [Angular Intro](/angular-intro.html)
+ - [Angular Intro and Controllers](/angular-intro.html)
  - [Angular Providers](/angular-provider.html)
  - [Angular Services](/angular-services.html)
+ - [Angular Scope](/angular-scope.html)
  - [Angular Unit Tests](/angular-unit-test.html)
  - [Asynchronous JavaScript](/asynchronous-javascript.html)
  - [Command Line Arguments](/command-line-args.html)
