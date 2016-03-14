@@ -1,10 +1,11 @@
 (function() {
     "use strict";
 
-    var app = angular.module('app', []);
+    var app = angular.module('app', ['gameModule']);
+    var gameModule = angular.module('gameModule', []);
 
     app.config(['GuessGameProvider', function(guessGameProvider) {
-        guessGameProvider.defaultMaxValue = 100;
+        guessGameProvider.defaultMaxValue = 10;
     }]);
 
     app.controller('AppController', ['GuessGame', function(guessGame) {
@@ -40,7 +41,7 @@
 
     }]);
 
-    app.provider('GuessGame', [function() {
+    gameModule.provider('GuessGame', [function() {
         var provider = this;
 
         this.defaultMaxValue = 100;
