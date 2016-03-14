@@ -14,7 +14,7 @@
  - [MongoDB](/mongo.html)
  - [NoSQL](/nosql.html)
  - [Process](/process.html)
- - [Promises](/promises.html)s
+ - [Promises](/promises.html)
  - [Responsive Design](/responsive-design.html)
  - [REST](/rest.html)
  - [User Authentication - Passport and Express](/user-auth.html)
