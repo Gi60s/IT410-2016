@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+ - [Angular Directives](/angular-directives.html)
  - [Angular Intro and Controllers](/angular-intro.html)
  - [Angular Providers](/angular-provider.html)
  - [Angular Services](/angular-services.html)

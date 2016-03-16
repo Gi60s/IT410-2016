@@ -1,0 +1,15 @@
+<div class="modal fade" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" ng-if="title">
+        <button type="button" class="close" ng-click='modal.close()' aria-label="Close" ng-show="closeBtn"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body" ng-transclude></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click='modal.close()'>Close</button>
+        <button type="button" class="btn btn-primary" ng-click='submit(); modal.close()' ng-if="hasSubmit">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

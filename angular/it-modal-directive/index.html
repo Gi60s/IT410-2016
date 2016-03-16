@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <title>IT Modal Directive</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body ng-app='app' ng-controller="AppCtrl as ctrl">
+
+  <p>Submit Count: {{ctrl.submitCount}}</p>
+
+  <button class='btn btn-default' ng-click="ctrl.createModal()">Show Modal</button>
+
+  <it-modal></it-modal>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="app.js"></script>
+  <script src="it-modal.js"></script>
+</body>
+</html>
