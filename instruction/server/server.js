@@ -17,12 +17,16 @@ module.exports = function(port) {
         url = req.url.split('?')[0];
         if (url === '/') url = 'index.html';
 
-        if (/\.(?:html)|(?:png)|(?:jpg)|(?:jpeg)|(?:js)|(?:css)|(?:zip)$/i.test(url)) {
-            res.sendFile(distDirectory + '/' + url);
-        } else if (url === '/markdown.css') {
-            res.sendFile(markdownCssPath);
-        } else {
-            res.sendFile(resourceDirectory + '/' + url);
+        switch (url) {
+            case '/markdown.css':
+                res.sendFile(markdownCssPath);
+                break;
+            case '/main.css':
+            case '/main.js':
+                res.sendFile(resourceDirectory + url);
+                break;
+            default:
+                res.sendFile(distDirectory + '/' + url);
         }
     });
 
