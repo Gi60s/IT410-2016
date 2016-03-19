@@ -5,8 +5,7 @@
 <hr>
 
 <ul>
-<li>Directives are custom HTML elements or attributes that add functionality to your HTML with very little input.</li>
-<li>They are similar to Web Components</li>
+<li>Directives are custom HTML elements or attributes that add functionality to your HTML with very little input. - They are similar to Web Components</li>
 </ul>
 
 <p>There is a lot to know about directives and we're just going to hit a few things here. For the full documentation check out these links:</p>
@@ -26,84 +25,41 @@
 
 <p><strong>app.js</strong></p>
 
-<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>() {
-  <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
-  <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>itModal<span class="pl-pds">'</span></span>]);
+<p>```js (function() { "use strict"; var app = angular.module('app', ['itModal']);</p>
 
-  <span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>AppCtrl<span class="pl-pds">'</span></span>, [<span class="pl-k">function</span>() {
+<p>app.controller('AppCtrl', [function() {</p>
 
-    <span class="pl-v">this</span>.<span class="pl-smi">submitCount</span> <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+<p>this.submitCount = 0;</p>
 
-    <span class="pl-v">this</span>.<span class="pl-smi">incrementSubmitCount</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
-      <span class="pl-v">this</span>.<span class="pl-smi">submitCount</span><span class="pl-k">++</span>;
-    };
+<p>this.incrementSubmitCount = function() { this.submitCount++; };</p>
 
-    <span class="pl-v">this</span>.<span class="pl-smi">createModal</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
-      <span class="pl-c">// TODO: call the service to create a modal directive</span>
-    }
+<p>this.createModal = function() { // TODO: call the service to create a modal directive }</p>
 
-  }]);
-})();</pre></div>
+<p>}]); })(); ```</p>
 
 <p><strong>index.html</strong></p>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;!doctype html&gt;
-&lt;<span class="pl-ent">html</span>&gt;
-&lt;<span class="pl-ent">head</span>&gt;
-  &lt;<span class="pl-ent">title</span>&gt;IT Modal Directive&lt;/<span class="pl-ent">title</span>&gt;
-  &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css<span class="pl-pds">"</span></span>&gt;
-&lt;/<span class="pl-ent">head</span>&gt;
-&lt;<span class="pl-ent">body</span> <span class="pl-e">ng-app</span>=<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span> <span class="pl-e">ng-controller</span>=<span class="pl-s"><span class="pl-pds">"</span>AppCtrl as ctrl<span class="pl-pds">"</span></span>&gt;
+<p>```html &lt;!doctype html&gt;  </p> IT Modal Directive   
 
-  &lt;<span class="pl-ent">p</span>&gt;Submit Count: {{ctrl.submitCount}}&lt;/<span class="pl-ent">p</span>&gt;
+<p></p><p>Submit Count: {{ctrl.submitCount}}</p>
 
-  &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">'</span>btn btn-default<span class="pl-pds">'</span></span> <span class="pl-e">ng-click</span>=<span class="pl-s"><span class="pl-pds">"</span>ctrl.createModal()<span class="pl-pds">"</span></span>&gt;Show Modal&lt;/<span class="pl-ent">button</span>&gt;
+<p>Show Modal</p>
 
-  &lt;<span class="pl-ent">it</span><span class="pl-e">-modal</span>&gt;&lt;/<span class="pl-ent">it</span><span class="pl-e">-modal</span>&gt;
+<p></p>
 
-<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>app.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-<span class="pl-s1">  &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>it-modal.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-&lt;/<span class="pl-ent">body</span>&gt;
-&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+<p>     ```</p>
 
 <p><strong>it-modal.js</strong></p>
 
-<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>() {
-  <span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
-  <span class="pl-k">var</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>itModal<span class="pl-pds">'</span></span>, []);
+<p>```js (function() { "use strict"; var module = angular.module('itModal', []);</p>
 
-  <span class="pl-c1">module</span>.<span class="pl-en">factory</span>(<span class="pl-s"><span class="pl-pds">'</span>itModal<span class="pl-pds">'</span></span>, [<span class="pl-k">function</span>() {
-    <span class="pl-c">// TODO: create a service that creates an it-modal</span>
-  }]);
+<p>module.factory('itModal', [function() { // TODO: create a service that creates an it-modal }]);</p>
 
-  <span class="pl-c1">module</span>.<span class="pl-en">directive</span>(<span class="pl-s"><span class="pl-pds">'</span>itModal<span class="pl-pds">'</span></span>, [<span class="pl-k">function</span>() {
-    <span class="pl-k">return</span> {
-      restrict<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span>,
-      templateUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>./it-modal-tpl.html<span class="pl-pds">"</span></span>
-    }
-  }]);
-})();</pre></div>
+<p>module.directive('itModal', [function() { return { restrict: 'E', templateUrl: "./it-modal-tpl.html" } }]); })(); ```</p>
 
 <p><strong>it-modal-tpl.html</strong></p>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>modal fade in<span class="pl-pds">"</span></span> <span class="pl-e">tabindex</span>=<span class="pl-s"><span class="pl-pds">"</span>-1<span class="pl-pds">"</span></span> <span class="pl-e">role</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog<span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>display: block;<span class="pl-pds">"</span></span>&gt;
-  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-dialog<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-content<span class="pl-pds">"</span></span>&gt;
-      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-header<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>button<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>close<span class="pl-pds">"</span></span> <span class="pl-e">data-dismiss</span>=<span class="pl-s"><span class="pl-pds">"</span>modal<span class="pl-pds">"</span></span> <span class="pl-e">aria-label</span>=<span class="pl-s"><span class="pl-pds">"</span>Close<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">span</span> <span class="pl-e">aria-hidden</span>=<span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>&gt;<span class="pl-c1">&amp;times;</span>&lt;/<span class="pl-ent">span</span>&gt;&lt;/<span class="pl-ent">button</span>&gt;
-        &lt;<span class="pl-ent">h4</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-title<span class="pl-pds">"</span></span>&gt;Modal title&lt;/<span class="pl-ent">h4</span>&gt;
-      &lt;/<span class="pl-ent">div</span>&gt;
-      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-body<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">p</span>&gt;Body content&lt;/<span class="pl-ent">p</span>&gt;
-      &lt;/<span class="pl-ent">div</span>&gt;
-      &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-footer<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>button<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-default<span class="pl-pds">"</span></span> <span class="pl-e">data-dismiss</span>=<span class="pl-s"><span class="pl-pds">"</span>modal<span class="pl-pds">"</span></span>&gt;Close&lt;/<span class="pl-ent">button</span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>button<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-primary<span class="pl-pds">"</span></span>&gt;Submit&lt;/<span class="pl-ent">button</span>&gt;
-      &lt;/<span class="pl-ent">div</span>&gt;
-    &lt;/<span class="pl-ent">div</span>&gt;
-  &lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+<p><code>html &lt;div class="modal fade in" tabindex="-1" role="dialog" style="display: block;"&gt; &lt;div class="modal-dialog"&gt; &lt;div class="modal-content"&gt; &lt;div class="modal-header"&gt; &lt;button type="button" class="close" data-dismiss="modal" aria-label="Close"&gt;&lt;span aria-hidden="true"&gt;&amp;times;&lt;/span&gt;&lt;/button&gt; &lt;h4 class="modal-title"&gt;Modal title&lt;/h4&gt; &lt;/div&gt; &lt;div class="modal-body"&gt; &lt;p&gt;Body content&lt;/p&gt; &lt;/div&gt; &lt;div class="modal-footer"&gt; &lt;button type="button" class="btn btn-default" data-dismiss="modal"&gt;Close&lt;/button&gt; &lt;button type="button" class="btn btn-primary"&gt;Submit&lt;/button&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt;</code></p>
 
 <hr>
 
@@ -116,9 +72,7 @@
 <p>We want the title of the modal to match the <code>title</code> attribute on the directive.</p>
 
 <ol>
-<li>Create an isolate scope for the directive.</li>
-<li>Add the title to the scope through an attribute string evaluation using <code>@</code>.</li>
-<li>If a title is provided then use it to populate the modal's title, otherwise hide the modal's title area.</li>
+<li>Create an isolate scope for the directive. 2. Add the title to the scope through an attribute string evaluation using <code>@</code>. 3. If a title is provided then use it to populate the modal's title, otherwise hide the modal's title area.</li>
 </ol>
 
 <hr>
@@ -129,8 +83,7 @@
 <p>We want the close button to show up if there is a <code>close-button</code> attribute in the directive that evaluates to <code>true</code>.</p>
 
 <ol>
-<li>Add the closeBtn to the scope through an attribute value evaluation using <code>=</code>.</li>
-<li>If scope.closeBtn is false then hide the button.</li>
+<li>Add the closeBtn to the scope through an attribute value evaluation using <code>=</code>. 2. If scope.closeBtn is false then hide the button.</li>
 </ol>
 
 <hr>
@@ -141,9 +94,7 @@
 <p>We want to populate the body with whatever content is inside of the directive.</p>
 
 <ol>
-<li>Add the ng-transclude attribute to the template's body element.</li>
-<li>In the directive configuration set the property <code>transclude</code> to <code>true</code>.</li>
-<li>Add content to the directive element on the <code>index.html</code> file.</li>
+<li>Add the ng-transclude attribute to the template's body element. 2. In the directive configuration set the property <code>transclude</code> to <code>true</code>. 3. Add content to the directive element on the <code>index.html</code> file.</li>
 </ol>
 
 <hr>
@@ -154,16 +105,7 @@
 <p>We want the modal to animate to closed when we click the close button or the X button.</p>
 
 <ol>
-<li>Create a controller with <code>$scope</code> and <code>$element</code> injected.</li>
-<li>Set the <code>controllerAs</code> property.</li>
-<li>Define a function that will remove the popup from the DOM.
-
-<ul>
-<li>The function should remove the <code>in</code> class from the modal's child element.</li>
-<li>After a 500ms delay it should remove the element.</li>
-</ul>
-</li>
-<li>Use <code>ng-click</code> in the html template to call the close function.</li>
+<li>Create a controller with <code>$scope</code> and <code>$element</code> injected. 2. Set the <code>controllerAs</code> property. 3. Define a function that will remove the popup from the DOM. - The function should remove the <code>in</code> class from the modal's child element. - After a 500ms delay it should remove the element. 4. Use <code>ng-click</code> in the html template to call the close function.</li>
 </ol>
 
 <hr>
@@ -174,8 +116,7 @@
 <p>We want the modal to animate in when it appears.</p>
 
 <ol>
-<li>Add a linking function.</li>
-<li>After 1 tick then add the class <code>in</code> to the modal's child element.</li>
+<li>Add a linking function. 2. After 1 tick then add the class <code>in</code> to the modal's child element.</li>
 </ol>
 
 <hr>
@@ -186,10 +127,7 @@
 <p>We want the submit button on the modal to execute an expression provided through the <code>submit</code> attribute.</p>
 
 <ol>
-<li>In the directive, add <code>submit</code> to the scope with <code>&amp;</code>.</li>
-<li>In the directive template have the submit button call <code>submit(); modal.close();</code>.</li>
-<li>In the <code>index.html</code> add a paragraph that displays the value from <code>message</code>.</li>
-<li>In the <code>index.html</code> add the attribute <code>submit="message = 'You clicked submit.'"</code>.</li>
+<li>In the directive, add <code>submit</code> to the scope with <code>&amp;</code>. 2. In the directive template have the submit button call <code>submit(); modal.close();</code>. 3. In the <code>index.html</code> add a paragraph that displays the value from <code>message</code>. 4. In the <code>index.html</code> add the attribute <code>submit="message = 'You clicked submit.'"</code>.</li>
 </ol>
 
 <hr>
@@ -200,8 +138,7 @@
 <p>If there is no submit attribute then we want to hide the submit button.</p>
 
 <ol>
-<li>For the modal template add the directive <code>ng-if="submit"</code> to the submit button.</li>
-<li>In the <code>index.html</code> file remove the <code>submit</code> attribute from the directive element.</li>
+<li>For the modal template add the directive <code>ng-if="submit"</code> to the submit button. 2. In the <code>index.html</code> file remove the <code>submit</code> attribute from the directive element.</li>
 </ol>
 
 <p><strong>Question:</strong> Why is the submit-button still showing up.</p>
@@ -216,8 +153,7 @@
 <p><strong>Answer:</strong> Scope properties evaluated to <code>&amp;</code> wrap the property with a function. Even when the property doesn't exist a function is still created but the function does nothing.</p>
 
 <ol>
-<li>On the directive scope add a the property <code>hasSubmit</code> set to <code>@submit</code>.</li>
-<li>In the directive template set the <code>ng-if</code> on the submit button to <code>hasSubmit</code>.</li>
+<li>On the directive scope add a the property <code>hasSubmit</code> set to <code>@submit</code>. 2. In the directive template set the <code>ng-if</code> on the submit button to <code>hasSubmit</code>.</li>
 </ol>
 
 <hr>
@@ -226,11 +162,7 @@
 <a id="user-content-open-a-new-modal" class="anchor" href="#open-a-new-modal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Open a new Modal</h3>
 
 <ol>
-<li>Generate an element structure that builds the <code>it-modal</code> through Javascript, using a configuration to define parameters.</li>
-<li>Use <code>$compile</code> and scope to compile the element.</li>
-<li>Place the element on the DOM.</li>
-<li>Inject the <code>itModal</code> and <code>$scope</code> services into the controller.</li>
-<li>Have the <code>createModal</code> function call the service to create the modal.</li>
+<li>Generate an element structure that builds the <code>it-modal</code> through Javascript, using a configuration to define parameters. 2. Use <code>$compile</code> and scope to compile the element. 3. Place the element on the DOM. 4. Inject the <code>itModal</code> and <code>$scope</code> services into the controller. 5. Have the <code>createModal</code> function call the service to create the modal.</li>
 </ol>
 
 <hr>
