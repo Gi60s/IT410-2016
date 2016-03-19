@@ -2,7 +2,7 @@
   "use strict";
   var app = angular.module('app', ['itModal']);
 
-  app.controller('AppCtrl', [function() {
+  app.controller('AppCtrl', ['itModal', '$scope', function(itModal, $scope) {
 
     this.submitCount = 0;
 
@@ -10,9 +10,14 @@
       this.submitCount++;
     };
 
+    this.showInitialModal = true;
+
     this.createModal = function() {
-      // TODO: call the service to create a modal directive
-    }
+      itModal($scope, {
+        title: 'Foo',
+        body: 'Foo body'
+      });
+    };
 
   }]);
 })();

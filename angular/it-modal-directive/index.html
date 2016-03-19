@@ -10,7 +10,9 @@
 
   <button class='btn btn-default' ng-click="ctrl.createModal()">Show Modal</button>
 
-  <it-modal></it-modal>
+  <it-modal title="Hello" button-close="ctrl.showInitialModal" submit="ctrl.submitCount = ctrl.submitCount + 1">
+    <p>This is the IT Modal</p>
+  </it-modal>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script src="app.js"></script>
