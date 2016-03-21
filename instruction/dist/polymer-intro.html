@@ -1,0 +1,211 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-polymer-introduction" class="anchor" href="#polymer-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Polymer Introduction</h1>
+
+<hr>
+
+<h2>
+<a id="user-content-polymer-starter-kit" class="anchor" href="#polymer-starter-kit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Polymer Starter Kit</h2>
+
+<p>The Polymer starter kit is intended to quickly get you started with Polymer. It has the following features:</p>
+
+<ul>
+<li>Page routing</li>
+<li>Material design</li>
+<li>Unit testing</li>
+<li>A deployment pipeline</li>
+</ul>
+
+<p>The Polymer Starter Kit comes in two flavors:</p>
+
+<ol>
+<li>The light starter kit
+
+<ul>
+<li>For beginners in web development</li>
+<li>Everything is already compiled and set up</li>
+<li>May be a little out of date.</li>
+</ul>
+</li>
+<li>The normal starter kit
+
+<ul>
+<li>Requires you to have passing familiarity with NodeJS, gulp, and bower.</li>
+</ul>
+</li>
+</ol>
+
+<h4>
+<a id="user-content-exercise" class="anchor" href="#exercise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li><a href="https://github.com/PolymerElements/polymer-starter-kit/releases/latest">Download the Polymer Starter Kit</a></li>
+<li>Follow the set up instructions on the <a href="https://github.com/PolymerElements/polymer-starter-kit">GitHub Polymer Start Kit Repository</a>.</li>
+</ol>
+
+<h3>
+<a id="user-content-results" class="anchor" href="#results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h3>
+
+<p>After following set up instructions and starting with <code>gulp serve</code> we should see some URL's in the terminal.</p>
+
+<div class="highlight highlight-source-shell"><pre>[PSK] Access URLs:
+ -------------------------------------
+       Local: http://localhost:5000
+    External: http://192.168.1.10:5000
+ -------------------------------------
+          UI: http://localhost:3001
+ UI External: http://192.168.1.10:3001
+ -------------------------------------
+[PSK] Serving files from: .tmp
+[PSK] Serving files from: app</pre></div>
+
+<ul>
+<li>The Local URL is the URL to load our application from the local machine.</li>
+<li>The External URL is how another computer would access our app.</li>
+<li>The UI URL is an interface for making changes to the running BrowserSync.</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-browsersync" class="anchor" href="#browsersync" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BrowserSync</h2>
+
+<p>BrowserSync does a few nice things for us:</p>
+
+<h3>
+<a id="user-content-live-reloads" class="anchor" href="#live-reloads" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live reloads</h3>
+
+<p>Whenever a file changes it automatically reloads the browser.</p>
+
+<h4>
+<a id="user-content-exercise-1" class="anchor" href="#exercise-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>Have your browser open to the app.</li>
+<li>Edit your index.html file. For example, in rename the menu item "Contact" to "Contacts".</li>
+</ol>
+
+<h3>
+<a id="user-content-browser-mirroring" class="anchor" href="#browser-mirroring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Browser Mirroring</h3>
+
+<p>Browser events are shared between open instances of the app.</p>
+
+<ol>
+<li>Clicks</li>
+<li>Scrolling</li>
+<li>Form submission</li>
+<li>Form inputs</li>
+<li>Form toggles (radio/checkbox)</li>
+</ol>
+
+<h4>
+<a id="user-content-exercise-2" class="anchor" href="#exercise-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>Open a second browser window to the same URL.</li>
+<li>Open the app on another device: a tablet, a phone, or another computer. It must be on the same network.</li>
+<li>Interact with the app and watch the other open instances change too.</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-browsersync-settings" class="anchor" href="#browsersync-settings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BrowserSync Settings</h2>
+
+<p>Open a browser window to the BrowserSync UI page: http://localhost:3001</p>
+
+<ul>
+<li>
+<strong>Overview</strong> - See the URL for the running app, what directories are being served from, and what clients are connected.</li>
+<li>
+<strong>Sync Options</strong> - Decide what should be synced between browsers.</li>
+<li>
+<strong>Network Throttle</strong> - Start a new server for the app that throttles the network speed (slows it down).</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-resources-to-learn-polymer" class="anchor" href="#resources-to-learn-polymer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Resources to Learn Polymer</h2>
+
+<p>There is a lot to learn about Polymer and we won't attempt to cover it all in one class, so here are some great learning resources:</p>
+
+<ul>
+<li>
+<a href="https://www.youtube.com/playlist?list=PLNYkxOF6rcIDdS7HWIC_BYRunV6MHs5xo">Polycasts with Rob Dodson</a> - A series of very well done, clear, and concise videos that teach you how to write Polymer applications and web components.</li>
+<li>
+<a href="https://www.polymer-project.org">Polymer Home Page</a>
+
+<ul>
+<li>
+<a href="https://www.polymer-project.org/1.0/docs/devguide/feature-overview.html">Developer Guide</a> - A comprehensive guide on everything you need to know about how polymer works. Read this very carefully, twice.</li>
+<li><a href="https://elements.polymer-project.org/">Elements Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="user-content-the-elements-catalog" class="anchor" href="#the-elements-catalog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Elements Catalog</h2>
+
+<p><a href="https://elements.polymer-project.org/">Elements Catalog</a></p>
+
+<ul>
+<li>
+<strong>Iron Elements</strong> - These are the core polymer elements upon which other elements are built.</li>
+<li>
+<strong>Paper Elements</strong> - Material design elements.</li>
+<li>
+<strong>Google Web Components</strong> - Components that use Google's API's and services.</li>
+<li>
+<strong>Gold Elements</strong> - Ecommerce elements.</li>
+<li>
+<strong>Neon Elements</strong> - Animation and special effects.</li>
+<li>
+<strong>Platinum Elements</strong> - Offline, push, and more.</li>
+<li>
+<strong>Molecules</strong> - Wrappers for third-party libraries.</li>
+</ul>
+
+<h2>
+<a id="user-content-iron-autogrow-textarea" class="anchor" href="#iron-autogrow-textarea" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>iron-autogrow-textarea</h2>
+
+<p>Creates a text area that will automatically grow larger as the amount of input increases.</p>
+
+<h4>
+<a id="user-content-exercise-3" class="anchor" href="#exercise-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exercise</h4>
+
+<ol>
+<li>
+<p>Add the iron-autogrow-textarea element to the home page.</p>
+
+<div class="highlight highlight-text-html-basic"><pre>...
+
+<span class="pl-c">&lt;!-- Main Content --&gt;</span>
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">iron</span><span class="pl-e">-pages</span> <span class="pl-e">attr-for-selected</span>=<span class="pl-s"><span class="pl-pds">"</span>data-route<span class="pl-pds">"</span></span> <span class="pl-e">selected</span>=<span class="pl-s"><span class="pl-pds">"</span>{{route}}<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">section</span> <span class="pl-e">data-route</span>=<span class="pl-s"><span class="pl-pds">"</span>home<span class="pl-pds">"</span></span> <span class="pl-e">tabindex</span>=<span class="pl-s"><span class="pl-pds">"</span>-1<span class="pl-pds">"</span></span>&gt;
+
+          <span class="pl-c">&lt;!-- Add code here --&gt;</span>
+          &lt;<span class="pl-ent">paper</span><span class="pl-e">-material</span>&gt;
+            &lt;<span class="pl-ent">iron</span><span class="pl-e">-autogrow-textarea</span>&gt;&lt;/<span class="pl-ent">iron</span><span class="pl-e">-autogrow-textarea</span>&gt;
+          &lt;/<span class="pl-ent">paper</span><span class="pl-e">-material</span>&gt;
+
+...</pre></div>
+</li>
+<li>
+<p>You'll also find in the index.html the following, which tells us that all of our component includes should be inside of <code>elements/elements.html</code>.</p>
+
+<div class="highlight highlight-text-html-basic"><pre>...
+&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>import<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>elements/elements.html<span class="pl-pds">"</span></span>&gt;
+...</pre></div>
+</li>
+<li>
+<p>Open <code>elements/elements.html</code> for editing and add the following under the iron elements section:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>import<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html<span class="pl-pds">"</span></span>&gt;</pre></div>
+</li>
+</ol>
+
+<script src="main.js"></script></body></html>
