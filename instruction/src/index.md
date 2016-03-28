@@ -10,6 +10,7 @@
  - [Angular Unit Tests](/angular-unit-test.html)
  - [Asynchronous JavaScript](/asynchronous-javascript.html)
  - [Command Line Arguments](/command-line-args.html)
+ - [Event Sourcing and CQRS](/event-sourcing-cqrs.html)
  - [Gulp](/gulp.html)
  - [HTML &amp; CSS](/html-and-css.html)
  - [Markdown](/markdown.html)
