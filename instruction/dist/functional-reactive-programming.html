@@ -1,0 +1,220 @@
+<!doctype html><html lang=''><head><meta charset='utf8'><meta name="viewport" resources="width=device-width, initial-scale=1"><link rel="stylesheet" href="markdown.css"><link rel="stylesheet" href="main.css"></head><body><div id="Main" class="markdown-body">
+<h1>
+<a id="user-content-functional-reactive-programming" class="anchor" href="#functional-reactive-programming" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functional Reactive Programming</h1>
+
+<hr>
+
+<p>In order to understand how this works we first need to recap two other ideas that we've already covered to some degree:</p>
+
+<ol>
+<li>Functional Programming</li>
+<li>Event Driven Programming</li>
+</ol>
+
+<hr>
+
+<h2>
+<a id="user-content-functional-programming" class="anchor" href="#functional-programming" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functional Programming</h2>
+
+<p>There are two ways to program: functionally and imperatively.</p>
+
+<h3>
+<a id="user-content-imperative" class="anchor" href="#imperative" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Imperative</h3>
+
+<ul>
+<li>
+<strong>Programmer Focus</strong> - How to perform tasks (algorithms) and how to track changes in state</li>
+<li>
+<strong>State Changes</strong> - Important</li>
+<li>
+<strong>Order of Execution</strong> - Important</li>
+<li>
+<strong>Primary Flow Control</strong> - Loops, conditions, and function calls</li>
+<li>
+<strong>Primary Manipulation Unit</strong> - Instances of structures or classes</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> numbers <span class="pl-k">=</span> [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>];
+<span class="pl-k">var</span> doubled <span class="pl-k">=</span> [];
+
+<span class="pl-k">for</span>(<span class="pl-k">var</span> i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-smi">numbers</span>.<span class="pl-c1">length</span>; i<span class="pl-k">++</span>){
+  <span class="pl-k">var</span> newNumber <span class="pl-k">=</span> numbers[i] <span class="pl-k">*</span> <span class="pl-c1">2</span>;
+  <span class="pl-smi">doubled</span>.<span class="pl-c1">push</span>(newNumber);
+}
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(doubled); <span class="pl-c">// [2,4,6,8,10]</span></pre></div>
+
+<h3>
+<a id="user-content-functional-programming-1" class="anchor" href="#functional-programming-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functional Programming</h3>
+
+<ul>
+<li>
+<strong>Programmer Focus</strong> - What information is desired and what transformations are required.</li>
+<li>
+<strong>State Changes</strong> - Non-existent (Immutable)</li>
+<li>
+<strong>Order of Execution</strong> - Low importance</li>
+<li>
+<strong>Primary Flow Control</strong> - Function calls, including recursion</li>
+<li>
+<strong>Primary Manipulation Unit</strong> - Functions and data collections</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> numbers <span class="pl-k">=</span> [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>,<span class="pl-c1">5</span>];
+
+<span class="pl-k">var</span> doubled <span class="pl-k">=</span> <span class="pl-smi">numbers</span>.<span class="pl-en">map</span>(<span class="pl-k">function</span>(<span class="pl-smi">n</span>) {
+  <span class="pl-k">return</span> n <span class="pl-k">*</span> <span class="pl-c1">2</span>
+});
+
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(doubled); <span class="pl-c">//[2,4,6,8,10]</span></pre></div>
+
+<hr>
+
+<h3>
+<a id="user-content-imperative-is-conceptually-straight-forward" class="anchor" href="#imperative-is-conceptually-straight-forward" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Imperative is Conceptually Straight Forward</h3>
+
+<p>The following two examples do the exact same thing, but one is imperative and one is functional. Both functions below take an array of numbers and return the sum of them.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> x <span class="pl-k">=</span> <span class="pl-en">sum</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">4</span>]);  <span class="pl-c">// 10</span></pre></div>
+
+<p><strong>Imperative Example: For Loop</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">sum</span>(<span class="pl-smi">numbers</span>) {
+    <span class="pl-k">var</span> i;
+    <span class="pl-k">var</span> total <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+    <span class="pl-k">for</span> (i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-smi">numbers</span>.<span class="pl-c1">length</span>; i<span class="pl-k">++</span>)
+        total <span class="pl-k">+=</span> numbers[i];
+    }
+    <span class="pl-k">return</span> total;
+}</pre></div>
+
+<p><strong>Functional Example: Recursion</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">sum</span>(<span class="pl-smi">numbers</span>) {
+    <span class="pl-k">if</span> (<span class="pl-smi">numbers</span>.<span class="pl-c1">length</span> <span class="pl-k">===</span> <span class="pl-c1">0</span>) {
+        <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+    } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">numbers</span>.<span class="pl-c1">length</span> <span class="pl-k">===</span> <span class="pl-c1">1</span>) {
+        <span class="pl-k">return</span> numbers[<span class="pl-c1">0</span>];
+    } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">numbers</span>.<span class="pl-c1">length</span> <span class="pl-k">&gt;</span> <span class="pl-c1">1</span>) {
+        <span class="pl-k">var</span> copyRest <span class="pl-k">=</span> <span class="pl-smi">numbers</span>.<span class="pl-c1">slice</span>(<span class="pl-c1">1</span>);
+        <span class="pl-k">return</span> numbers[<span class="pl-c1">0</span>] <span class="pl-k">+</span> <span class="pl-en">sum</span>(copyRest);
+    }
+}</pre></div>
+
+<hr>
+
+<h3>
+<a id="user-content-the-real-world-more-closely-models-imperative-programming" class="anchor" href="#the-real-world-more-closely-models-imperative-programming" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Real World More Closely Models Imperative Programming</h3>
+
+<p><strong>Imperative Mutable Object</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">Person</span>(<span class="pl-smi">name</span>, <span class="pl-smi">age</span>) {
+    <span class="pl-v">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
+    <span class="pl-v">this</span>.<span class="pl-smi">age</span> <span class="pl-k">=</span> age;
+}
+
+<span class="pl-k">var</span> p <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Person</span>(<span class="pl-s"><span class="pl-pds">'</span>Bob<span class="pl-pds">'</span></span>, <span class="pl-c1">15</span>);
+<span class="pl-smi">p</span>.<span class="pl-smi">age</span> <span class="pl-k">=</span> <span class="pl-c1">16</span>;</pre></div>
+
+<p><strong>Functional Immutable Object</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">Person</span>(<span class="pl-smi">name</span>, <span class="pl-smi">age</span>) {
+    <span class="pl-v">this</span>.<span class="pl-en">name</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+        <span class="pl-k">return</span> name;
+    };
+    <span class="pl-v">this</span>.<span class="pl-en">age</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+        <span class="pl-k">return</span> age;
+    }
+}
+
+<span class="pl-k">var</span> p <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Person</span>(<span class="pl-s"><span class="pl-pds">'</span>Bob<span class="pl-pds">'</span></span>, <span class="pl-c1">15</span>);
+p <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Person</span>(<span class="pl-s"><span class="pl-pds">'</span>Bob<span class="pl-pds">'</span></span>, <span class="pl-c1">16</span>);</pre></div>
+
+<hr>
+
+<h3>
+<a id="user-content-imperative-is-less-stable-functional-might-be-stale" class="anchor" href="#imperative-is-less-stable-functional-might-be-stale" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Imperative is Less Stable, Functional Might be Stale</h3>
+
+<p><strong>Imperative Example</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">asyncFullName</span>(<span class="pl-smi">person</span>, <span class="pl-smi">callback</span>) {
+    <span class="pl-k">var</span> fullName <span class="pl-k">=</span> <span class="pl-smi">person</span>.<span class="pl-smi">firstName</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span>;
+    <span class="pl-c1">setTimeout</span>(<span class="pl-k">function</span>() {
+        fullName <span class="pl-k">+=</span> <span class="pl-smi">person</span>.<span class="pl-smi">lastName</span>;
+        <span class="pl-en">callback</span>(fullName);
+    });
+}
+
+<span class="pl-k">function</span> <span class="pl-en">Person</span>(<span class="pl-smi">firstName</span>, <span class="pl-smi">lastName</span>) {
+    <span class="pl-v">this</span>.<span class="pl-smi">firstName</span> <span class="pl-k">=</span> firstName;
+    <span class="pl-v">this</span>.<span class="pl-smi">lastName</span> <span class="pl-k">=</span> lastName;
+}
+
+<span class="pl-k">var</span> p <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Person</span>(<span class="pl-s"><span class="pl-pds">'</span>Bob<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Smith<span class="pl-pds">'</span></span>);
+<span class="pl-en">asnycFullName</span>(p, <span class="pl-en">console</span>.log);          <span class="pl-c">// will eventually output "Bob Jones"</span>
+<span class="pl-smi">p</span>.<span class="pl-smi">lastName</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Jones<span class="pl-pds">'</span></span>;</pre></div>
+
+<p><strong>Functional Example</strong></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">asyncFullName</span>(<span class="pl-smi">person</span>, <span class="pl-smi">callback</span>) {
+    <span class="pl-k">var</span> fullName <span class="pl-k">=</span> <span class="pl-smi">person</span>.<span class="pl-en">firstName</span>() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span>;
+    <span class="pl-c1">setTimeout</span>(<span class="pl-k">function</span>() {
+        fullName <span class="pl-k">+=</span> <span class="pl-smi">person</span>.<span class="pl-en">lastName</span>();
+        <span class="pl-en">callback</span>(fullName);
+    });
+}
+
+<span class="pl-k">function</span> <span class="pl-en">Person</span>(<span class="pl-smi">firstName</span>, <span class="pl-smi">lastName</span>) {
+    <span class="pl-v">this</span>.<span class="pl-en">firstName</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> firstName;
+    <span class="pl-v">this</span>.<span class="pl-en">lastName</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> lastName;
+}
+
+<span class="pl-k">var</span> p <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Person</span>(<span class="pl-s"><span class="pl-pds">'</span>Bob<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Smith<span class="pl-pds">'</span></span>);
+<span class="pl-en">asnycFullName</span>(p, <span class="pl-en">console</span>.log);          <span class="pl-c">// will eventually output "Bob Smith"</span>
+p <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Person</span>(<span class="pl-s"><span class="pl-pds">'</span>Bob<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Jones<span class="pl-pds">'</span></span>);</pre></div>
+
+<hr>
+
+<h3>
+<a id="user-content-functional-programming-is-the-future" class="anchor" href="#functional-programming-is-the-future" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functional Programming Is the Future</h3>
+
+<p>Code is becoming increasingly complex (conceptually) and higher performing through asynchronous code.</p>
+
+<blockquote>
+<p>There is no doubt in my mind, and most experts agree, that concurrency and parallelism are the future of programming.</p>
+
+<p><a href="https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming">https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming</a></p>
+</blockquote>
+
+<p>If we continue to program imperatively it will be very difficult to manage state with asynchronous code.</p>
+
+<blockquote>
+<p>A race condition or race hazard is the behavior of an electronic, software or other system where the output is dependent on the sequence or timing of other uncontrollable events. It becomes a bug when events do not happen in the order the programmer intended.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Race_condition">https://en.wikipedia.org/wiki/Race_condition</a></p>
+</blockquote>
+
+<h2></h2>
+
+<blockquote>
+<p>So why are data races so much harder to detect and fix than regular bugs? It all has to do with non-determinism. Every time a multi-threaded program is run, its threads may interleave differently. The number of possible interleavings is astronomical.</p>
+
+<p><a href="https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming">https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming</a></p>
+</blockquote>
+
+<p>We can reduce complexity by removing state change.</p>
+
+<blockquote>
+<p>One way of reducing the complexity [of software] is to reduce or eliminate (ideally) the footprint of state change taking place in our programs.</p>
+
+<p>Fogus, Michael. Functional JavaScript.  O’Reilly Media, Inc. 2013</p>
+</blockquote>
+
+<h2></h2>
+
+<blockquote>
+<p>Imperative programs will always be vulnerable to data races because they contain mutable variables… There are no data races in purely functional languages because they don't have mutable variables.</p>
+
+<p><a href="https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming">https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming</a></p>
+</blockquote>
+
+<script src="main.js"></script></body></html>
